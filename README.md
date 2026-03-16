@@ -17,3 +17,7 @@ Com base em uma pesquisa de opinião do [Cesop](https://www.cesop.unicamp.br/) (
 3. **GitHub**. Implementar um GitHub com o projeto.
 4. **Entrega**. No formato de um artigo SBC, preferencialmente em Latex. Apresentação opcional no YouTube (máximo 5min) com o link a ser incluído no GitHub.
 5. **Rubrica**. Modelo LLM, 3p (quantidade de atributos e respostas, qualidade dos prompts e aderência das respostas); Modelo Supervisionado, 2p (separação de dados, parametrização do modelo); Análise e Comparação dos resultados, 3p (métricas empregadas, repetições e/ou bootstrapping, gráficos comparativos, técnicas de explicabilidade); Artigo e Aspecto Geral do Trabalho, 2p (Apresentação, fundamentação, referências, apresentação dos resultados).
+
+## Referências
+
+1. [Simulating Public Opinion: Comparing Distributional and Individual-Level Predictions from LLMs and Random Forests](docs/Simulating%20Public%20Opinion%20-%20Comparing%20Distributional%20and%20Individual-Level%20Predictions%20from%20LLMs%20and%20Random%20Forests.pdf)
