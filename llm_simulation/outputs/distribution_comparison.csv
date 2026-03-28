@@ -1,0 +1,84 @@
+question,answer,real_pct,llm_pct
+P1A,não votou em 2022 (esp.),0.065,0.0
+P1A,não,0.66,0.86
+P1A,sim,0.275,0.14
+P1B,não votou em 2022 (esp.),0.065,0.0
+P1B,não,0.68,0.785
+P1B,sim,0.255,0.215
+P1C,não votou em 2022 (esp.),0.07,0.0
+P1C,não,0.66,0.82
+P1C,sim,0.27,0.18
+P2_1,incentivar a geração de empregos,0.145,0.14
+P2_1,aumentar os impostos de grandes fortunas (ou dos mais ricos),0.02,0.05
+P2_1,ampliar os espaços de participação política da população,0.03,0.0
+P2_1,melhorar a qualidade da saúde,0.21,0.005
+P2_1,reduzir as desigualdades sociais,0.145,0.75
+P2_1,melhorar a qualidade da educação,0.09,0.0
+P2_1,ampliar o uso de energias renováveis,0.025,0.0
+P2_1,defender a igualdade entre homens e mulheres,0.025,0.0
+P2_1,"combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.12,0.02
+P2_1,reduzir a violência,0.105,0.0
+P2_1,preservar os valores ligados à família,0.04,0.015
+P2_1,não sabe/ não respondeu,0.035,0.0
+P2_1,combater as mudanças climáticas/desmatamento,0.01,0.02
+P3_1,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.245,0.43
+P3_1,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.065,0.19
+P3_1,"ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",0.04,0.0
+P3_1,não sabe/ não respondeu,0.145,0.0
+P3_1,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.18,0.07
+P3_1,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.25,0.31
+P3_1,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.075,0.0
+P4,nenhuma vontade,0.845,0.11
+P4,alguma vontade,0.09,0.89
+P4,muita vontade,0.065,0.0
+P2_2,melhorar a qualidade da educação,0.14594594594594595,0.005405405405405406
+P2_2,ampliar o uso de energias renováveis,0.032432432432432434,0.0
+P2_2,defender a igualdade entre homens e mulheres,0.032432432432432434,0.0
+P2_2,"combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.07027027027027027,0.02702702702702703
+P2_2,reduzir a violência,0.15675675675675677,0.0
+P2_2,preservar os valores ligados à família,0.04864864864864865,0.0
+P2_2,ampliar os espaços de participação política da população,0.005405405405405406,0.0
+P2_2,incentivar a geração de empregos,0.12972972972972974,0.2
+P2_2,aumentar os impostos de grandes fortunas (ou dos mais ricos),0.043243243243243246,0.043243243243243246
+P2_2,melhorar a qualidade da saúde,0.22162162162162163,0.0
+P2_2,combater as mudanças climáticas/desmatamento,0.02702702702702703,0.016216216216216217
+P2_2,reduzir as desigualdades sociais,0.08648648648648649,0.7081081081081081
+P2_3,melhorar a qualidade da educação,0.21264367816091953,0.0
+P2_3,ampliar o uso de energias renováveis,0.017241379310344827,0.0
+P2_3,defender a igualdade entre homens e mulheres,0.04597701149425287,0.0
+P2_3,"combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.04597701149425287,0.05747126436781609
+P2_3,reduzir a violência,0.10919540229885058,0.0
+P2_3,preservar os valores ligados à família,0.09770114942528736,0.028735632183908046
+P2_3,ampliar os espaços de participação política da população,0.017241379310344827,0.0
+P2_3,incentivar a geração de empregos,0.1781609195402299,0.20689655172413793
+P2_3,aumentar os impostos de grandes fortunas (ou dos mais ricos),0.034482758620689655,0.08045977011494253
+P2_3,melhorar a qualidade da saúde,0.14942528735632185,0.0
+P2_3,combater as mudanças climáticas/desmatamento,0.05172413793103448,0.005747126436781609
+P2_3,reduzir as desigualdades sociais,0.040229885057471264,0.6206896551724138
+P3_2,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.2222222222222222,0.35555555555555557
+P3_2,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.12222222222222222,0.25555555555555554
+P3_2,"ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",0.12222222222222222,0.0
+P3_2,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.32222222222222224,0.12222222222222222
+P3_2,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.0,0.26666666666666666
+P3_2,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.2111111111111111,0.0
+P3_3,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.0,0.4857142857142857
+P3_3,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.2857142857142857,0.22857142857142856
+P3_3,"ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",0.11428571428571428,0.0
+P3_3,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.08571428571428572,0.02857142857142857
+P3_3,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.0,0.2571428571428571
+P3_3,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.5142857142857142,0.0
+P3_4,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.0,0.4166666666666667
+P3_4,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.8333333333333334,0.08333333333333333
+P3_4,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.0,0.16666666666666666
+P3_4,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.0,0.3333333333333333
+P3_4,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.16666666666666666,0.0
+P3_5,"ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",1.0,0.0
+P3_5,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.0,0.3
+P3_5,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.0,0.1
+P3_5,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.0,0.4
+P3_5,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.0,0.2
+P3_6,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.0,0.2
+P3_6,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.0,0.1
+P3_6,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.0,0.6
+P3_6,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.0,0.1
+P3_6,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",1.0,0.0
