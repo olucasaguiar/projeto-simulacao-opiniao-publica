@@ -13,7 +13,7 @@ venv:
 # Install dependencies
 install: venv
 	$(PIP) install --upgrade pip
-	$(PIP) install -r requirements.txt
+	$(PIP) install -r ./llm_simulation/requirements.txt
 
 # Setup everything
 setup: install
