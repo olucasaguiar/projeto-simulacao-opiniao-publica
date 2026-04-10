@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import pandas as pd
 import requests
 import pyreadstat
@@ -60,12 +61,11 @@ Responda com APENAS uma das opções exatamente como escrita.
 Não explique sua resposta.
 """
 
-
 # -------------------------------
 # QUESTIONS EXTRACTION
 # -------------------------------
 def extract_questions():
-    return {'P2_1': {'text': 'P.02) Qual dessas propostas você acha que deveria ser prioridade de um(a) político(a)?', 'options': ['Reduzir as desigualdades sociais','Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)','Aumentar os impostos de grandes fortunas (ou dos mais ricos)','Incentivar a geração de empregos','Combater as mudanças climáticas/desmatamento','Ampliar o uso de energias renováveis','Preservar os valores ligados à família','Defender a igualdade entre homens e mulheres', 'Melhorar a qualidade da Saúde', 'Melhorar a qualidade da Educação', 'Reduzir a violência', 'Ampliar os espaços de participação política da população', 'Não sabe', 'Não respondeu']}, 'P3_1': {'text': 'P.03) Quais dessas opções você acredita que poderiam contribuir no combate à divulgação de fake news?', 'options': ['Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (empresas de tecnologia como Facebook, Youtube, WhatsApp, Twitter/X, etc.)','Responsabilizar e punir as empresas de tecnologia e de comunicação que não removerem postagens com notícias ou conteúdos falsos','Ampliar a regulamentação, as regras a serem cumpridas pelos usuários que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros','Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos','Ampliar a regulamentação, as regras a serem cumpridas por políticos/candidatos que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros','Responsabilizar, punir ou cassar políticos/candidatos que divulgam ou compartilham postagens com notícias ou conteúdos falsos', 'Não sabe','Não respondeu']}}
+    return {'P2_1': {'text': 'P.02) Qual dessas propostas você acha que deveria ser prioridade de um(a) político(a)?', 'options': ['Reduzir as desigualdades sociais','Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)','Aumentar os impostos de grandes fortunas (ou dos mais ricos)','Incentivar a geração de empregos','Combater as mudanças climáticas/desmatamento','Ampliar o uso de energias renováveis','Preservar os valores ligados à família','Defender a igualdade entre homens e mulheres', 'Melhorar a qualidade da saúde', 'Melhorar a qualidade da educação', 'Reduzir a violência', 'Ampliar os espaços de participação política da população', 'Não sabe/ Não respondeu']}, 'P3_1': {'text': 'P.03) Quais dessas opções você acredita que poderiam contribuir no combate à divulgação de fake news?', 'options': ['Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)','Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos','Ampliar a regulamentação, as regras a serem cumpridas pelos usuários que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros','Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos','Ampliar a regulamentação, as regras a serem cumpridas por políticos/candidatos que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros','Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos', 'Não sabe/ Não respondeu']}}
 
 
 # -------------------------------
@@ -77,6 +77,26 @@ def clean_answer(answer, options):
             return opt
     return answer  # fallback
 
+def process_row(i, row, questions):
+    local_results = []
+    i+=1
+    for q_col, q_data in questions.items():
+        if pd.isna(row[q_col]):
+            continue
+
+        prompt = build_prompt(row, q_data["text"], q_data["options"])
+        raw_answer = call_llm(prompt)
+        answer = clean_answer(raw_answer, q_data["options"])
+
+        local_results.append({
+            "index": i,
+            "question": q_col,
+            "llm_answer": answer,
+            "true_answer": row[q_col]
+        })
+        print(f"{i} - {q_col}: {answer}")
+
+    return local_results
 
 # -------------------------------
 # MAIN
@@ -87,27 +107,17 @@ def main():
 
     # extract questions
     questions = extract_questions()
+
     results = []
 
-    for i, row in df.iterrows():
-        i+=1
-        for q_col, q_data in questions.items():
-            if str(row[q_col]) == "nan":
-                continue
-            prompt = build_prompt(row, q_data["text"], q_data["options"])
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = [
+            executor.submit(process_row, i, row, questions)
+            for i, row in df.iterrows()
+        ]
 
-            raw_answer = call_llm(prompt)
-            answer = clean_answer(raw_answer, q_data["options"])
-
-            results.append({
-                "index": i,
-                "question": q_col,
-                "llm_answer": answer,
-                "true_answer": row[q_col]
-            })
-
-            print(f"{i} - {q_col}: {answer}")
-
+        for future in as_completed(futures):
+            results.extend(future.result())
 
     # save results
     df_results = pd.DataFrame(results)

@@ -8,8 +8,12 @@ from scipy.spatial.distance import jensenshannon
 INPUT_PATH = "llm_simulation/outputs/llm_results.csv"
 OUTPUT_DIR = "llm_simulation/outputs/"
 
-def compute_jsd(df):
-    rows = []
+# -------------------------------
+# JSD + DISTRIBUTION (UNIFICADO)
+# -------------------------------
+def compute_jsd_and_distribution(df):
+    jsd_rows = []
+    dist_rows = []
 
     for q in df["question"].unique():
         subset = df[df["question"] == q]
@@ -17,19 +21,28 @@ def compute_jsd(df):
         real = subset["true_answer"].value_counts(normalize=True)
         llm = subset["llm_answer"].value_counts(normalize=True)
 
-        all_labels = set(real.index).union(set(llm.index))
+        all_labels = sorted(set(real.index).union(set(llm.index)))
 
         real = real.reindex(all_labels, fill_value=0)
         llm = llm.reindex(all_labels, fill_value=0)
 
-        jsd_value = jensenshannon(real.values, llm.values)
+        # JSD real (sem raiz)
+        jsd_value = jensenshannon(real.values, llm.values) ** 2
 
-        rows.append({
+        jsd_rows.append({
             "question": q,
             "jsd": jsd_value
         })
 
-    return pd.DataFrame(rows)
+        for label in all_labels:
+            dist_rows.append({
+                "question": q,
+                "answer": label,
+                "real_prob": real[label],
+                "llm_prob": llm[label]
+            })
+
+    return pd.DataFrame(jsd_rows), pd.DataFrame(dist_rows)
 
 # -------------------------------
 # NORMALIZATION
@@ -77,32 +90,6 @@ def compute_accuracy_per_question(df):
         .rename(columns={"correct": "accuracy"})
     )
 
-
-# -------------------------------
-# DISTRIBUTIONS
-# -------------------------------
-def compute_distribution(df):
-    rows = []
-
-    for q in df["question"].unique():
-        subset = df[df["question"] == q]
-
-        real_dist = subset["true_answer"].value_counts(normalize=True)
-        llm_dist = subset["llm_answer"].value_counts(normalize=True)
-
-        all_labels = set(real_dist.index).union(set(llm_dist.index))
-
-        for label in all_labels:
-            rows.append({
-                "question": q,
-                "answer": label,
-                "real_pct": real_dist.get(label, 0),
-                "llm_pct": llm_dist.get(label, 0)
-            })
-
-    return pd.DataFrame(rows)
-
-
 # -------------------------------
 # EXPORT
 # -------------------------------
@@ -146,8 +133,7 @@ def main():
 
     accuracy, df = compute_accuracy(df)
     acc_per_q = compute_accuracy_per_question(df)
-    dist_df = compute_distribution(df)
-    jsd_df = compute_jsd(df)
+    jsd_df, dist_df = compute_jsd_and_distribution(df)
     print("\nJSD per question:")
     print(jsd_df)
 
