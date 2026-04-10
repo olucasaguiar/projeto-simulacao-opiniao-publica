@@ -1,11 +1,35 @@
 import pandas as pd
 import re
+from scipy.spatial.distance import jensenshannon
 
 # -------------------------------
 # CONFIG
 # -------------------------------
 INPUT_PATH = "llm_simulation/outputs/llm_results.csv"
 OUTPUT_DIR = "llm_simulation/outputs/"
+
+def compute_jsd(df):
+    rows = []
+
+    for q in df["question"].unique():
+        subset = df[df["question"] == q]
+
+        real = subset["true_answer"].value_counts(normalize=True)
+        llm = subset["llm_answer"].value_counts(normalize=True)
+
+        all_labels = set(real.index).union(set(llm.index))
+
+        real = real.reindex(all_labels, fill_value=0)
+        llm = llm.reindex(all_labels, fill_value=0)
+
+        jsd_value = jensenshannon(real.values, llm.values)
+
+        rows.append({
+            "question": q,
+            "jsd": jsd_value
+        })
+
+    return pd.DataFrame(rows)
 
 # -------------------------------
 # NORMALIZATION
@@ -82,7 +106,7 @@ def compute_distribution(df):
 # -------------------------------
 # EXPORT
 # -------------------------------
-def export_results(df, accuracy, acc_per_q, dist_df):
+def export_results(df, accuracy, acc_per_q, dist_df, jsd_df):
     # overall
     pd.DataFrame({
         "metric": ["accuracy"],
@@ -107,6 +131,12 @@ def export_results(df, accuracy, acc_per_q, dist_df):
         index=False
     )
 
+    # JSD
+    jsd_df.to_csv(
+        f"{OUTPUT_DIR}/jsd_per_question.csv",
+        index=False
+    )
+
 
 # -------------------------------
 # MAIN
@@ -117,12 +147,15 @@ def main():
     accuracy, df = compute_accuracy(df)
     acc_per_q = compute_accuracy_per_question(df)
     dist_df = compute_distribution(df)
+    jsd_df = compute_jsd(df)
+    print("\nJSD per question:")
+    print(jsd_df)
 
     print(f"Overall Accuracy: {accuracy:.4f}\n")
     print("Accuracy per question:")
     print(acc_per_q)
 
-    export_results(df, accuracy, acc_per_q, dist_df)
+    export_results(df, accuracy, acc_per_q, dist_df, jsd_df)
     print(f"Results exported to {OUTPUT_DIR}")
 
 
