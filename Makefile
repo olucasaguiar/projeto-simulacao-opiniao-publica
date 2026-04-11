@@ -26,6 +26,10 @@ run:
 compare:
 	$(PYTHON) llm_simulation/src/compare_data.py
 
+# Display results
+display:
+	$(PYTHON) llm_simulation/src/display_data.py
+
 # Clean environment
 clean:
 	rm -rf $(VENV)
