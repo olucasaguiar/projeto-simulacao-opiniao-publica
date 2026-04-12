@@ -1,11 +1,48 @@
 import pandas as pd
 import re
+from scipy.spatial.distance import jensenshannon
 
 # -------------------------------
 # CONFIG
 # -------------------------------
 INPUT_PATH = "llm_simulation/outputs/llm_results.csv"
 OUTPUT_DIR = "llm_simulation/outputs/"
+
+# -------------------------------
+# JSD + DISTRIBUTION (UNIFICADO)
+# -------------------------------
+def compute_jsd_and_distribution(df):
+    jsd_rows = []
+    dist_rows = []
+
+    for q in df["question"].unique():
+        subset = df[df["question"] == q]
+
+        real = subset["true_answer"].value_counts(normalize=True)
+        llm = subset["llm_answer"].value_counts(normalize=True)
+
+        all_labels = sorted(set(real.index).union(set(llm.index)))
+
+        real = real.reindex(all_labels, fill_value=0)
+        llm = llm.reindex(all_labels, fill_value=0)
+
+        # JSD real (sem raiz)
+        jsd_value = jensenshannon(real.values, llm.values) ** 2
+
+        jsd_rows.append({
+            "question": q,
+            "jsd": jsd_value
+        })
+
+        for label in all_labels:
+            dist_rows.append({
+                "question": q,
+                "answer": label,
+                "real_prob": real[label],
+                "llm_prob": llm[label]
+            })
+
+    return pd.DataFrame(jsd_rows), pd.DataFrame(dist_rows)
 
 # -------------------------------
 # NORMALIZATION
@@ -53,36 +90,10 @@ def compute_accuracy_per_question(df):
         .rename(columns={"correct": "accuracy"})
     )
 
-
-# -------------------------------
-# DISTRIBUTIONS
-# -------------------------------
-def compute_distribution(df):
-    rows = []
-
-    for q in df["question"].unique():
-        subset = df[df["question"] == q]
-
-        real_dist = subset["true_answer"].value_counts(normalize=True)
-        llm_dist = subset["llm_answer"].value_counts(normalize=True)
-
-        all_labels = set(real_dist.index).union(set(llm_dist.index))
-
-        for label in all_labels:
-            rows.append({
-                "question": q,
-                "answer": label,
-                "real_pct": real_dist.get(label, 0),
-                "llm_pct": llm_dist.get(label, 0)
-            })
-
-    return pd.DataFrame(rows)
-
-
 # -------------------------------
 # EXPORT
 # -------------------------------
-def export_results(df, accuracy, acc_per_q, dist_df):
+def export_results(df, accuracy, acc_per_q, dist_df, jsd_df):
     # overall
     pd.DataFrame({
         "metric": ["accuracy"],
@@ -107,6 +118,12 @@ def export_results(df, accuracy, acc_per_q, dist_df):
         index=False
     )
 
+    # JSD
+    jsd_df.to_csv(
+        f"{OUTPUT_DIR}/jsd_per_question.csv",
+        index=False
+    )
+
 
 # -------------------------------
 # MAIN
@@ -116,13 +133,15 @@ def main():
 
     accuracy, df = compute_accuracy(df)
     acc_per_q = compute_accuracy_per_question(df)
-    dist_df = compute_distribution(df)
+    jsd_df, dist_df = compute_jsd_and_distribution(df)
+    print("\nJSD per question:")
+    print(jsd_df)
 
     print(f"Overall Accuracy: {accuracy:.4f}\n")
     print("Accuracy per question:")
     print(acc_per_q)
 
-    export_results(df, accuracy, acc_per_q, dist_df)
+    export_results(df, accuracy, acc_per_q, dist_df, jsd_df)
     print(f"Results exported to {OUTPUT_DIR}")
 
 

@@ -1,13 +1,12 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import pandas as pd
 import requests
 import pyreadstat
-import time
 
 # -------------------------------
 # CONFIG
 # -------------------------------
-DATA_PATH = "llm_simulation/data/dataset_sampled_labeled.csv"
-SAV_PATH = "docs/04832 PERCEPÇÃO DOS BRASILEIROS ACERCA DA DEMOCRACIA/04832.SAV"
+TEST_PATH = "llm_simulation/data/df_test.csv"
 OUTPUT_PATH = "llm_simulation/outputs/llm_results.csv"
 MODEL = "llama3"
 
@@ -37,10 +36,18 @@ Você está simulando um respondente brasileiro de uma pesquisa de opinião.
 
 Perfil da pessoa:
 - Sexo: {row['SEXO']}
-- Idade: {row['IDADE']}
 - Escolaridade: {row['ESCOLARIDADE']}
-- Renda: {row['REND1']}
 - Religião: {row['RELIGIAO']}
+- Faixa etária: {row['FX_ID']}
+- Raça: {row['RACA']}
+- Renda pessoal (em salários mínimos): {row['REND1']}
+- Renda familiar (em salários mínimos): {row['REND2']}
+- Região do país: {row['REGIAO']}
+- Condição do municipio: {row['COND']}
+- Lembra em quem votou para Deputado Estadual nas eleições gerais de 2022: {row['P1A']}
+- Lembra em quem votou para Deputado Federal nas eleições gerais de 2022: {row['P1B']}
+- Lembra em quem votou para Senador nas eleições gerais de 2022? {row['P1C']}
+- Nível de interesse em participar da vida política? {row['P4']}
 
 Baseie sua resposta nas características do perfil e no comportamento típico de indivíduos semelhantes.
 
@@ -54,29 +61,11 @@ Responda com APENAS uma das opções exatamente como escrita.
 Não explique sua resposta.
 """
 
-
 # -------------------------------
 # QUESTIONS EXTRACTION
 # -------------------------------
-def extract_questions(meta):
-    questions = {}
-
-    for col, question_text in meta.column_names_to_labels.items():
-        if col not in meta.variable_value_labels:
-            continue
-
-        # keep only survey questions
-        if not col.startswith("P") or col == "PORTE":
-            continue
-
-        options = list(meta.variable_value_labels[col].values())
-
-        questions[col] = {
-            "text": question_text,
-            "options": options
-        }
-
-    return questions
+def extract_questions():
+    return {'P2_1': {'text': 'P.02) Qual dessas propostas você acha que deveria ser prioridade de um(a) político(a)?', 'options': ['Reduzir as desigualdades sociais','Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)','Aumentar os impostos de grandes fortunas (ou dos mais ricos)','Incentivar a geração de empregos','Combater as mudanças climáticas/desmatamento','Ampliar o uso de energias renováveis','Preservar os valores ligados à família','Defender a igualdade entre homens e mulheres', 'Melhorar a qualidade da saúde', 'Melhorar a qualidade da educação', 'Reduzir a violência', 'Ampliar os espaços de participação política da população', 'Não sabe/ Não respondeu']}, 'P3_1': {'text': 'P.03) Quais dessas opções você acredita que poderiam contribuir no combate à divulgação de fake news?', 'options': ['Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)','Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos','Ampliar a regulamentação, as regras a serem cumpridas pelos usuários que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros','Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos','Ampliar a regulamentação, as regras a serem cumpridas por políticos/candidatos que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros','Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos', 'Não sabe/ Não respondeu']}}
 
 
 # -------------------------------
@@ -88,41 +77,47 @@ def clean_answer(answer, options):
             return opt
     return answer  # fallback
 
+def process_row(i, row, questions):
+    local_results = []
+    i+=1
+    for q_col, q_data in questions.items():
+        if pd.isna(row[q_col]):
+            continue
+
+        prompt = build_prompt(row, q_data["text"], q_data["options"])
+        raw_answer = call_llm(prompt)
+        answer = clean_answer(raw_answer, q_data["options"])
+
+        local_results.append({
+            "index": i,
+            "question": q_col,
+            "llm_answer": answer,
+            "true_answer": row[q_col]
+        })
+        print(f"{i} - {q_col}: {answer}")
+
+    return local_results
 
 # -------------------------------
 # MAIN
 # -------------------------------
 def main():
     # load data
-    df = pd.read_csv(DATA_PATH)
-
-    # load metadata
-    _, meta = pyreadstat.read_sav(SAV_PATH, apply_value_formats=True)
+    df = pd.read_csv(TEST_PATH)
 
     # extract questions
-    questions = extract_questions(meta)
+    questions = extract_questions()
 
     results = []
 
-    for i, row in df.iterrows():
-        i+=1
-        for q_col, q_data in questions.items():
-            if str(row[q_col]) == "nan":
-                continue
-            prompt = build_prompt(row, q_data["text"], q_data["options"])
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = [
+            executor.submit(process_row, i, row, questions)
+            for i, row in df.iterrows()
+        ]
 
-            raw_answer = call_llm(prompt)
-            answer = clean_answer(raw_answer, q_data["options"])
-
-            results.append({
-                "index": i,
-                "question": q_col,
-                "llm_answer": answer,
-                "true_answer": row[q_col]
-            })
-
-            print(f"{i} - {q_col}: {answer}")
-
+        for future in as_completed(futures):
+            results.extend(future.result())
 
     # save results
     df_results = pd.DataFrame(results)
