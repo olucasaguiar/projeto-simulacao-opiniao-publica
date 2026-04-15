@@ -1,22 +1,23 @@
 question,answer,real_prob,llm_prob
-P2_1,ampliar o uso de energias renováveis,0.015,0.025
+P2_1,ampliar o uso de energias renováveis,0.015,0.005
 P2_1,ampliar os espaços de participação política da população,0.02,0.0
 P2_1,aumentar os impostos de grandes fortunas (ou dos mais ricos),0.015,0.065
-P2_1,combater as mudanças climáticas/desmatamento,0.0,0.03
-P2_1,"combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.155,0.01
-P2_1,defender a igualdade entre homens e mulheres,0.01,0.06
-P2_1,incentivar a geração de empregos,0.185,0.335
+P2_1,combater as mudanças climáticas/desmatamento,0.0,0.035
+P2_1,"combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.155,0.015
+P2_1,defender a igualdade entre homens e mulheres,0.01,0.035
+P2_1,incentivar a geração de empregos,0.185,0.415
 P2_1,melhorar a qualidade da educação,0.105,0.005
-P2_1,melhorar a qualidade da saúde,0.175,0.06
+P2_1,melhorar a qualidade da saúde,0.175,0.095
 P2_1,não sabe/ não respondeu,0.02,0.0
-P2_1,preservar os valores ligados à família,0.045,0.085
+P2_1,preservar os valores ligados à família,0.045,0.035
 P2_1,reduzir a violência,0.095,0.0
-P2_1,reduzir as desigualdades sociais,0.16,0.325
+P2_1,reduzir as desigualdades sociais,0.16,0.295
 P3_1,"ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",0.045,0.0
 P3_1,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.065,0.0
-P3_1,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.275,0.195
-P3_1,"ampliar a regulamentação, as regras a serem cumpridas pelos usuários que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros",0.0,0.455
+P3_1,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.275,0.155
+P3_1,"ampliar a regulamentação, as regras a serem cumpridas pelos usuários que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros",0.0,0.43
 P3_1,não sabe/ não respondeu,0.075,0.0
-P3_1,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.245,0.245
+P3_1,não sabe/não respondeu,0.0,0.005
+P3_1,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.245,0.305
 P3_1,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.205,0.105
 P3_1,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.09,0.0
