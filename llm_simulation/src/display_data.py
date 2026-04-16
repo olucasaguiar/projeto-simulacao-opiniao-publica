@@ -32,6 +32,7 @@ def plot_question(question, title):
     plt.xticks(x, labels, rotation=90, ha="center", fontsize=8)
     plt.ylabel("Probabilidade")
     plt.title(f"Distribuição de respostas - {question} ({title})")
+    plt.legend()
 
     plt.tight_layout()
     plt.savefig(f"{OUTPUT_DIR}/{question}.png")
