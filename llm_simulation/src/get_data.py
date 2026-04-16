@@ -30,25 +30,35 @@ def call_llm(prompt):
 # -------------------------------
 def build_prompt(row, question_text, options):
     options_str = "\n".join([f"{i+1}. {opt}" for i, opt in enumerate(options)])
+#  respondente brasileiro de uma pesquisa de opinião.
 
-    return f"""
-Você está simulando um respondente brasileiro de uma pesquisa de opinião.
+    prompt=f"""
+Você é uma pessoa do sexo {row['SEXO']}, tem escolaridade {row['ESCOLARIDADE']}, religião {row['RELIGIAO']}, é da faixa etária {row['FX_ID']}, é da raça {row['RACA']}, renda pessoal de {row['REND1']} salários mínimos, renda familiar de {row['REND2']} salários mínimos, mora na região {row['REGIAO']} do país, em um município com condição {row['COND']}. 
+"""
+    if row['P4'] != "Não sabe/ Não respondeu":
+        prompt = prompt +f"""Você tem {row['P4']} em participar da vida política.
+"""
 
-Perfil da pessoa:
-- Sexo: {row['SEXO']}
-- Escolaridade: {row['ESCOLARIDADE']}
-- Religião: {row['RELIGIAO']}
-- Faixa etária: {row['FX_ID']}
-- Raça: {row['RACA']}
-- Renda pessoal (em salários mínimos): {row['REND1']}
-- Renda familiar (em salários mínimos): {row['REND2']}
-- Região do país: {row['REGIAO']}
-- Condição do municipio: {row['COND']}
-- Lembra em quem votou para Deputado Estadual nas eleições gerais de 2022: {row['P1A']}
-- Lembra em quem votou para Deputado Federal nas eleições gerais de 2022: {row['P1B']}
-- Lembra em quem votou para Senador nas eleições gerais de 2022? {row['P1C']}
-- Nível de interesse em participar da vida política? {row['P4']}
+    if row['P1A'] == "Sim":
+        prompt = prompt +f"""Você se lembra em quem votou para Deputado Estadual nas eleições gerais de 2022.
+"""
+    else:
+        prompt = prompt +f"""Você não lembra em quem votou para Deputado Estadual nas eleições gerais de 2022.
+"""
+    if row['P1B'] == "Sim":
+        prompt = prompt +f"""Você se lembra em quem votou para Deputado Federal nas eleições gerais de 2022.
+"""
+    else:
+        prompt = prompt +f"""Você não lembra em quem votou para Deputado Federal nas eleições gerais de 2022.
+"""
+    if row['P1C'] == "Sim":
+        prompt = prompt +f"""Você se lembra em quem votou para Senador nas eleições gerais de 2022.
+"""
+    else:
+        prompt = prompt +f"""Você não lembra em quem votou para Senador nas eleições gerais de 2022.
+"""
 
+    prompt = prompt + f"""
 Baseie sua resposta nas características do perfil e no comportamento típico de indivíduos semelhantes.
 
 Pergunta:
@@ -60,6 +70,7 @@ Opções:
 Responda com APENAS uma das opções exatamente como escrita.
 Não explique sua resposta.
 """
+    return prompt
 
 # -------------------------------
 # QUESTIONS EXTRACTION
