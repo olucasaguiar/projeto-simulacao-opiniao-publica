@@ -17,18 +17,21 @@ def plot_question(question, title):
 
     x = list(range(len(subset)))
 
-    labels = wrap_labels(subset["answer"], width=20)
+    labels = wrap_labels(subset["answer"], width=32)
 
-    plt.figure(figsize=(16, 10))
+    plt.figure(figsize=(16, 6))
 
     width = 0.4
     plt.bar([i - width/2 for i in x], subset["real_prob"], width=width, label="Real")
     plt.bar([i + width/2 for i in x], subset["llm_prob"], width=width, label="LLM")
 
-    plt.xticks(x, labels, rotation=45, ha="right", fontsize=8)
+
+    for i, label in enumerate(labels):
+        labels[i] = label.capitalize()
+        
+    plt.xticks(x, labels, rotation=90, ha="center", fontsize=8)
     plt.ylabel("Probabilidade")
     plt.title(f"Distribuição de respostas - {question} ({title})")
-    plt.legend()
 
     plt.tight_layout()
     plt.savefig(f"{OUTPUT_DIR}/{question}.png")
