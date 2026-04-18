@@ -19,6 +19,12 @@ Baseado no artigo *"Simulating Public Opinion: Comparing Distributional and Indi
 - **Comparação:** Avaliar acurácia, distribuição de respostas e explicabilidade (importância das variáveis).
 - **Abrangência:** Incluir o máximo possível de características sociodemográficas e perguntas do questionário.
 
+## Artigo
+
+O artigo final produzido por este trabalho pode ser acessado aqui:
+
+- [**Simulação opinião pública sobre a percepção dos brasileiros acerca da democracia**](docs/simulacao_opiniao_publica_sobre_a_percepcao_dos_brasileiros_acerca_da_democracia.pdf)
+
 ## Estrutura do Projeto
 
 - `docs/`: Artigos de referência e documentação do dataset original.
