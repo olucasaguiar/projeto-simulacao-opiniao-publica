@@ -1,23 +1,35 @@
 # Projeto: Simulação de Opinião Pública
 
+Este projeto consiste no desenvolvimento e comparação de modelos de Linguagem de Grande Escala (LLM) e Aprendizado Supervisionado para simular respostas de questionários de opinião pública.
+
 ## Introdução
 
-<adicionar>
+O projeto utiliza dados do **CESOP** (Centro de Estudos de Opinião Pública) para avaliar a capacidade de modelos computacionais em prever e reproduzir distribuições de opinião pública brasileira.
 
 ## Grupo
 
-1. <nome> - <registro_academico>
+1. Lucas Nascimento Aguiar
+2. Matheus dos Santos Moreira
 
-## Escopo
+## Escopo e Objetivos
 
-Com base em uma pesquisa de opinião do [Cesop](https://www.cesop.unicamp.br/) (Centro de Estudos de Opinião Pública) desenvolver um modelo LLM e um modelo de aprendizado supervisionado para simulação das respostas dos questionários e comparar seus resultados.
+Baseado no artigo *"Simulating Public Opinion: Comparing Distributional and Individual-Level Predictions from LLMs and Random Forests"*, o trabalho foca em:
 
-1. **Requisitos mínimos**. Ter como ponto de partida o artigo *Simulating Public Opinion: Comparing Distributional and Individual-Level Predictions from LLMs and Random Forests*, disponível na [pasta](https://drive.google.com/drive/folders/10Zv1waT-aTPFsYhZ6l1CSa3feDEBZ1R2?usp=sharing). Empregar no mínimo 200 simulações Comparar acuracidade (verificar métricas), distribuições das respostas e explicabilidade (importância relativa das variáveis preditoras). Simular ao menos 200 respondentes (10% dos dados), incluindo o maior número possível de características e respostas (sugestão: começe com um pequeno número respondentes, características e respostas, e aumente gradualmente).     
-2. **Ferramentas**. Empregue somente modelos e recursos abertos, sendo 100% executável e aberto. Preferencialmente executar 100% em um notebook Colab. 
-3. **GitHub**. Implementar um GitHub com o projeto.
-4. **Entrega**. No formato de um artigo SBC, preferencialmente em Latex. Apresentação opcional no YouTube (máximo 5min) com o link a ser incluído no GitHub.
-5. **Rubrica**. Modelo LLM, 3p (quantidade de atributos e respostas, qualidade dos prompts e aderência das respostas); Modelo Supervisionado, 2p (separação de dados, parametrização do modelo); Análise e Comparação dos resultados, 3p (métricas empregadas, repetições e/ou bootstrapping, gráficos comparativos, técnicas de explicabilidade); Artigo e Aspecto Geral do Trabalho, 2p (Apresentação, fundamentação, referências, apresentação dos resultados).
+- **Simulação:** Executar ao menos 200 simulações (aprox. 10% da base original).
+- **Comparação:** Avaliar acurácia, distribuição de respostas e explicabilidade (importância das variáveis).
+- **Abrangência:** Incluir o máximo possível de características sociodemográficas e perguntas do questionário.
+
+## Estrutura do Projeto
+
+- `docs/`: Artigos de referência e documentação do dataset original.
+- `ml_simulation/`: Notebooks Jupyter com os modelos de aprendizado supervisionado (Machine Learning).
+- `llm_simulation/`: Implementação, dados e resultados da simulação via LLM.
+
+## Ferramentas e Requisitos
+
+- Uso exclusivo de modelos e recursos **open-source**.
+- Implementação em **Python** e **Jupyter Notebook**.
 
 ## Referências
 
-1. [Simulating Public Opinion: Comparing Distributional and Individual-Level Predictions from LLMs and Random Forests](docs/Simulating%20Public%20Opinion%20-%20Comparing%20Distributional%20and%20Individual-Level%20Predictions%20from%20LLMs%20and%20Random%20Forests.pdf)
+- [Simulating Public Opinion: Comparing Distributional and Individual-Level Predictions from LLMs and Random Forests](docs/simulating_public_opinion-comparing_distributional_and_individual_level_predictions_from_llms_and_random_forests.pdf)
