@@ -1,0 +1,21 @@
+question,answer,real_prob,ml_prob
+P2_1,Ampliar o uso de energias renováveis,0.015,0.005
+P2_1,Ampliar os espaços de participação política da população,0.02,0.0
+P2_1,Aumentar os impostos de grandes fortunas (ou dos mais ricos),0.015,0.005
+P2_1,Combater as mudanças climáticas/desmatamento,0.0,0.005
+P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.155,0.1
+P2_1,Defender a igualdade entre homens e mulheres,0.01,0.015
+P2_1,Incentivar a geração de empregos,0.185,0.14
+P2_1,Melhorar a qualidade da educação,0.105,0.09
+P2_1,Melhorar a qualidade da saúde,0.175,0.315
+P2_1,Não sabe/ Não respondeu,0.02,0.015
+P2_1,Preservar os valores ligados à família,0.045,0.01
+P2_1,Reduzir a violência,0.095,0.155
+P2_1,Reduzir as desigualdades sociais,0.16,0.145
+P3_1,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",0.045,0.01
+P3_1,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.065,0.025
+P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",0.275,0.25
+P3_1,Não sabe/ Não respondeu,0.075,0.12
+P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.245,0.31
+P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.205,0.26
+P3_1,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.09,0.025
