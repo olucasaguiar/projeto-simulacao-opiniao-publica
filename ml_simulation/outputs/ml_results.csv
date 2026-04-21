@@ -1,0 +1,401 @@
+index,question,ml_answer,true_answer
+0,P2_1,Reduzir as desigualdades sociais,Reduzir a violência
+0,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+1,P2_1,Ampliar o uso de energias renováveis,Reduzir as desigualdades sociais
+1,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+2,P2_1,Incentivar a geração de empregos,Preservar os valores ligados à família
+2,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+3,P2_1,Melhorar a qualidade da saúde,Ampliar os espaços de participação política da população
+3,P3_1,Não sabe/ Não respondeu,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+4,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+4,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+5,P2_1,Melhorar a qualidade da saúde,Não sabe/ Não respondeu
+5,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+6,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+6,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+7,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Melhorar a qualidade da educação
+7,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+8,P2_1,Incentivar a geração de empregos,Reduzir as desigualdades sociais
+8,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+9,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+9,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+10,P2_1,Incentivar a geração de empregos,Preservar os valores ligados à família
+10,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+11,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir a violência
+11,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+12,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)","Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+12,P3_1,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+13,P2_1,Incentivar a geração de empregos,Melhorar a qualidade da saúde
+13,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+14,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+14,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+15,P2_1,Reduzir a violência,Incentivar a geração de empregos
+15,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Não sabe/ Não respondeu
+16,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)","Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+16,P3_1,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+17,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+17,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+18,P2_1,Reduzir as desigualdades sociais,Ampliar os espaços de participação política da população
+18,P3_1,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+19,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+19,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+20,P2_1,Melhorar a qualidade da educação,Reduzir as desigualdades sociais
+20,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+21,P2_1,Incentivar a geração de empregos,Reduzir as desigualdades sociais
+21,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+22,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+22,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+23,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+23,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+24,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+24,P3_1,Não sabe/ Não respondeu,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+25,P2_1,Aumentar os impostos de grandes fortunas (ou dos mais ricos),Reduzir as desigualdades sociais
+25,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+26,P2_1,Reduzir a violência,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+26,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+27,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+27,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+28,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+28,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+29,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+29,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+30,P2_1,Defender a igualdade entre homens e mulheres,Incentivar a geração de empregos
+30,P3_1,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos","Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+31,P2_1,Reduzir as desigualdades sociais,Reduzir as desigualdades sociais
+31,P3_1,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos","Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+32,P2_1,Defender a igualdade entre homens e mulheres,Incentivar a geração de empregos
+32,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+33,P2_1,Reduzir a violência,Reduzir a violência
+33,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+34,P2_1,Melhorar a qualidade da educação,Reduzir a violência
+34,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+35,P2_1,Não sabe/ Não respondeu,Melhorar a qualidade da saúde
+35,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+36,P2_1,Melhorar a qualidade da educação,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+36,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+37,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+37,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+38,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+38,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+39,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+39,P3_1,Não sabe/ Não respondeu,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+40,P2_1,Reduzir as desigualdades sociais,Reduzir a violência
+40,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+41,P2_1,Incentivar a geração de empregos,Reduzir a violência
+41,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+42,P2_1,Melhorar a qualidade da saúde,Ampliar os espaços de participação política da população
+42,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+43,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir as desigualdades sociais
+43,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+44,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+44,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Não sabe/ Não respondeu
+45,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)","Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+45,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+46,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+46,P3_1,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+47,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+47,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+48,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+48,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+49,P2_1,Reduzir a violência,Incentivar a geração de empregos
+49,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+50,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Ampliar o uso de energias renováveis
+50,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+51,P2_1,Reduzir a violência,Incentivar a geração de empregos
+51,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+52,P2_1,Reduzir a violência,Incentivar a geração de empregos
+52,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+53,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+53,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+54,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+54,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+55,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Melhorar a qualidade da educação
+55,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+56,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+56,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+57,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+57,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+58,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+58,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Não sabe/ Não respondeu
+59,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+59,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+60,P2_1,Melhorar a qualidade da educação,Reduzir as desigualdades sociais
+60,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+61,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+61,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+62,P2_1,Incentivar a geração de empregos,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+62,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+63,P2_1,Reduzir as desigualdades sociais,Reduzir as desigualdades sociais
+63,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+64,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+64,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+65,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir a violência
+65,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+66,P2_1,Incentivar a geração de empregos,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+66,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+67,P2_1,Reduzir a violência,Ampliar o uso de energias renováveis
+67,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+68,P2_1,Reduzir a violência,Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+68,P3_1,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+69,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+69,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+70,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+70,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+71,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+71,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+72,P2_1,Melhorar a qualidade da educação,Incentivar a geração de empregos
+72,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+73,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da saúde
+73,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+74,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da saúde
+74,P3_1,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+75,P2_1,Incentivar a geração de empregos,Reduzir as desigualdades sociais
+75,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+76,P2_1,Não sabe/ Não respondeu,Melhorar a qualidade da saúde
+76,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+77,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+77,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+78,P2_1,Melhorar a qualidade da saúde,Não sabe/ Não respondeu
+78,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Não sabe/ Não respondeu
+79,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da saúde
+79,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+80,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da saúde
+80,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+81,P2_1,Melhorar a qualidade da saúde,Reduzir a violência
+81,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+82,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+82,P3_1,Não sabe/ Não respondeu,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+83,P2_1,Reduzir as desigualdades sociais,Reduzir as desigualdades sociais
+83,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+84,P2_1,Melhorar a qualidade da educação,Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+84,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+85,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+85,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Não sabe/ Não respondeu
+86,P2_1,Melhorar a qualidade da saúde,Reduzir a violência
+86,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+87,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+87,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+88,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+88,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+89,P2_1,Reduzir a violência,Melhorar a qualidade da saúde
+89,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+90,P2_1,Reduzir a violência,Incentivar a geração de empregos
+90,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+91,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+91,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+92,P2_1,Reduzir as desigualdades sociais,Melhorar a qualidade da educação
+92,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+93,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+93,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+94,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Incentivar a geração de empregos
+94,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+95,P2_1,Incentivar a geração de empregos,Preservar os valores ligados à família
+95,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+96,P2_1,Reduzir as desigualdades sociais,Melhorar a qualidade da saúde
+96,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+97,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir a violência
+97,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+98,P2_1,Incentivar a geração de empregos,Melhorar a qualidade da saúde
+98,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+99,P2_1,Incentivar a geração de empregos,Melhorar a qualidade da saúde
+99,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+100,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+100,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+101,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)","Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+101,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+102,P2_1,Incentivar a geração de empregos,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+102,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+103,P2_1,Melhorar a qualidade da saúde,Preservar os valores ligados à família
+103,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+104,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+104,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+105,P2_1,Melhorar a qualidade da saúde,Ampliar o uso de energias renováveis
+105,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+106,P2_1,Reduzir a violência,Reduzir as desigualdades sociais
+106,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+107,P2_1,Incentivar a geração de empregos,Reduzir as desigualdades sociais
+107,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+108,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+108,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+109,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+109,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+110,P2_1,Melhorar a qualidade da educação,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+110,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+111,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+111,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+112,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir a violência
+112,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+113,P2_1,Incentivar a geração de empregos,Defender a igualdade entre homens e mulheres
+113,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+114,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+114,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+115,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+115,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+116,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+116,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+117,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+117,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+118,P2_1,Reduzir as desigualdades sociais,Não sabe/ Não respondeu
+118,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+119,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+119,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+120,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+120,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+121,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+121,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+122,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+122,P3_1,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+123,P2_1,Reduzir a violência,Reduzir as desigualdades sociais
+123,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+124,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da saúde
+124,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Não sabe/ Não respondeu
+125,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da saúde
+125,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+126,P2_1,Reduzir as desigualdades sociais,Preservar os valores ligados à família
+126,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+127,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+127,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+128,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+128,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+129,P2_1,Reduzir a violência,Incentivar a geração de empregos
+129,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+130,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Preservar os valores ligados à família
+130,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+131,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+131,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+132,P2_1,Reduzir a violência,Incentivar a geração de empregos
+132,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+133,P2_1,Reduzir as desigualdades sociais,Melhorar a qualidade da educação
+133,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+134,P2_1,Melhorar a qualidade da saúde,Ampliar os espaços de participação política da população
+134,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+135,P2_1,Defender a igualdade entre homens e mulheres,Reduzir a violência
+135,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+136,P2_1,Não sabe/ Não respondeu,Melhorar a qualidade da saúde
+136,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+137,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+137,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+138,P2_1,Melhorar a qualidade da educação,Reduzir a violência
+138,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+139,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+139,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+140,P2_1,Reduzir a violência,Melhorar a qualidade da saúde
+140,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+141,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+141,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+142,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir as desigualdades sociais
+142,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+143,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)","Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+143,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+144,P2_1,Reduzir a violência,Melhorar a qualidade da saúde
+144,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+145,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+145,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+146,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+146,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+147,P2_1,Reduzir a violência,Melhorar a qualidade da saúde
+147,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+148,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Incentivar a geração de empregos
+148,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+149,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+149,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+150,P2_1,Combater as mudanças climáticas/desmatamento,Reduzir a violência
+150,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+151,P2_1,Melhorar a qualidade da educação,Incentivar a geração de empregos
+151,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+152,P2_1,Reduzir a violência,Reduzir a violência
+152,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+153,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+153,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+154,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Reduzir a violência
+154,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+155,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+155,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+156,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+156,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+157,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+157,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+158,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+158,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+159,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+159,P3_1,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+160,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+160,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+161,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Melhorar a qualidade da saúde
+161,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+162,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+162,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+163,P2_1,Reduzir a violência,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+163,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+164,P2_1,Reduzir a violência,Reduzir as desigualdades sociais
+164,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+165,P2_1,Melhorar a qualidade da educação,Melhorar a qualidade da educação
+165,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+166,P2_1,Incentivar a geração de empregos,Reduzir as desigualdades sociais
+166,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+167,P2_1,Incentivar a geração de empregos,Melhorar a qualidade da educação
+167,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+168,P2_1,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",Melhorar a qualidade da saúde
+168,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+169,P2_1,Incentivar a geração de empregos,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+169,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros"
+170,P2_1,Reduzir a violência,Defender a igualdade entre homens e mulheres
+170,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+171,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+171,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+172,P2_1,Incentivar a geração de empregos,Reduzir as desigualdades sociais
+172,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+173,P2_1,Melhorar a qualidade da educação,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+173,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Não sabe/ Não respondeu
+174,P2_1,Reduzir as desigualdades sociais,Reduzir a violência
+174,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+175,P2_1,Reduzir a violência,Incentivar a geração de empregos
+175,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+176,P2_1,Reduzir as desigualdades sociais,Não sabe/ Não respondeu
+176,P3_1,Não sabe/ Não respondeu,Não sabe/ Não respondeu
+177,P2_1,Incentivar a geração de empregos,Incentivar a geração de empregos
+177,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+178,P2_1,Incentivar a geração de empregos,Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+178,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+179,P2_1,Reduzir as desigualdades sociais,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+179,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+180,P2_1,Reduzir a violência,Melhorar a qualidade da saúde
+180,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+181,P2_1,Reduzir as desigualdades sociais,Melhorar a qualidade da saúde
+181,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+182,P2_1,Preservar os valores ligados à família,Preservar os valores ligados à família
+182,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+183,P2_1,Preservar os valores ligados à família,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+183,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+184,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da saúde
+184,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+185,P2_1,Reduzir a violência,Melhorar a qualidade da educação
+185,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+186,P2_1,Melhorar a qualidade da saúde,Reduzir a violência
+186,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+187,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+187,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+188,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+188,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+189,P2_1,Melhorar a qualidade da saúde,Preservar os valores ligados à família
+189,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+190,P2_1,Melhorar a qualidade da educação,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+190,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+191,P2_1,Reduzir a violência,Preservar os valores ligados à família
+191,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+192,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+192,P3_1,Não sabe/ Não respondeu,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+193,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+193,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+194,P2_1,Melhorar a qualidade da saúde,Reduzir as desigualdades sociais
+194,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+195,P2_1,Reduzir as desigualdades sociais,Reduzir a violência
+195,P3_1,"Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
+196,P2_1,Melhorar a qualidade da saúde,Melhorar a qualidade da educação
+196,P3_1,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos
+197,P2_1,Melhorar a qualidade da saúde,"Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+197,P3_1,"Responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos","Ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros"
+198,P2_1,Reduzir as desigualdades sociais,Incentivar a geração de empregos
+198,P3_1,"Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)","Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (Facebook, Youtube, WhatsApp, etc.)"
+199,P2_1,Melhorar a qualidade da saúde,Incentivar a geração de empregos
+199,P3_1,Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,Responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos
