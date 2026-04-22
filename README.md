@@ -22,7 +22,7 @@ Baseado no artigo *"Simulating Public Opinion: Comparing Distributional and Indi
 ## Conteúdo produzido
 
 - [**Artigo: Simulação opinião pública sobre a percepção dos brasileiros acerca da democracia**](docs/Simulação_opinião_pública_sobre_a_percepção_dos_brasileiros_acerca_da_democracia.pdf)
-- [**Apresentação no formato PPT**](docs/Simulação opinião pública sobre a percepçao dos brasileiros acerca da democracia.pptx)
+- [**Apresentação no formato PPT**](docs/Simulação%20opinião%20pública%20sobre%20a%20percepçao%20dos%20brasileiros%20acerca%20da%20democracia.pptx)
 - [**Apresentação no formato de vídeo (YouTube)**](https://youtu.be/k-AyQ2m4o3M)
 
 ## Estrutura do Projeto
