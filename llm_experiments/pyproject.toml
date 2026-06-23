@@ -1,0 +1,28 @@
+[project]
+name = "llm-experiments"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "accelerate>=1.14.0",
+    "bitsandbytes>=0.49.2",
+    "httpx>=0.28.1",
+    "matplotlib>=3.11.0",
+    "pydantic>=2.13.4",
+    "pyyaml>=6.0.1",
+    "torch>=2.12.1",
+    "transformers>=5.12.1",
+]
+
+[project.scripts]
+llm-experiments = "main:main"
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.15.18",
+]

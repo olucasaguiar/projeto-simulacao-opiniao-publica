@@ -1,0 +1,263 @@
+llm:
+  active_models:
+    - id: "sabiazinho-4"
+      provider: "maritaca"
+    - id: "sabia-4"
+      provider: "maritaca"
+    - id: "tucano-2-1.5b-think"
+      provider: "local"
+      huggingface_id: "Polygl0t/Tucano2-qwen-1.5B-Think"
+    - id: "jurema-7b"
+      provider: "local"
+      huggingface_id: "Jurema-br/Jurema-7B"
+  maritaca:
+    base_url: "https://chat.maritaca.ai/api"
+    timeout: 30.0
+  local:
+    device: "cuda"
+    quantization: "4bit"
+
+sidra:
+  api:
+    base_url: "https://servicodados.ibge.gov.br/api/v3"
+    timeout: 30.0
+  defaults:
+    all_sentinel: "all"
+
+cache:
+  table_name: "distributions"
+  default_source: "sidra"
+
+persona_generation:
+  default_amount: 1
+  json_indent: 2
+
+paths:
+  distributions_db: "src/data/distributions.db"
+  report_dir: "src/reports"
+  report_images_subdir: "images"
+  report_filename: "simulacao_opiniao_report.md"
+
+censo:
+  race:
+    table_id: 9606
+    period: "2022"
+    variable_id: "93"
+    location_level: "N1"
+    classifications:
+      - id: 86
+        categories: ["all"]
+      - id: 2
+        categories: ["6794"]
+      - id: 287
+        categories: ["100362"]
+    mappings: {}
+    cache_key: "censo_race"
+    cache_ttl_days: 365
+
+  gender:
+    table_id: 9606
+    period: "2022"
+    variable_id: "93"
+    location_level: "N1"
+    classifications:
+      - id: 86
+        categories: ["95251"]
+      - id: 2
+        categories: ["all"]
+      - id: 287
+        categories: ["100362"]
+    mappings:
+      Homens: "Masculino"
+      Mulheres: "Feminino"
+    cache_key: "censo_gender"
+    cache_ttl_days: 365
+
+  region:
+    table_id: 9606
+    period: "2022"
+    variable_id: "93"
+    location_level: "N2"
+    classifications:
+      - id: 86
+        categories: ["95251"]
+      - id: 2
+        categories: ["6794"]
+      - id: 287
+        categories: ["100362"]
+    mappings: {}
+    cache_key: "censo_region"
+    cache_ttl_days: 365
+
+  age_group:
+    table_id: 9606
+    period: "2022"
+    variable_id: "93"
+    location_level: "N1"
+    classifications:
+      - id: 86
+        categories: ["95251"]
+      - id: 2
+        categories: ["6794"]
+      - id: 287
+        categories: ["all"]
+    mappings: {}
+    cache_key: "censo_age_group"
+    cache_ttl_days: 365
+
+  urban_rural:
+    table_id: 9923
+    period: "2022"
+    variable_id: "93"
+    location_level: "N1"
+    classifications:
+      - id: 1
+        categories: ["all"]
+    mappings: {}
+    cache_key: "censo_urban_rural"
+    cache_ttl_days: 365
+
+  religion:
+    table_id: 2094
+    period: "2010"
+    variable_id: "93"
+    location_level: "N1"
+    classifications:
+      - id: 133
+        categories: ["all"]
+      - id: 86
+        categories: ["0"]
+    mappings:
+      "Católica Apostólica Romana": "Católica"
+      "Evangélica": "Evangélica"
+      "Evangélicas": "Evangélica"
+      "Espírita": "Espírita"
+      "Umbanda": "Umbanda e Candomblé"
+      "Candomblé": "Umbanda e Candomblé"
+      "Sem religião": "Sem religião"
+    cache_key: "censo_religion"
+    cache_ttl_days: 365
+
+civil:
+  marital_status:
+    table_id: 1206
+    period: "2010"
+    variable_id: "140"
+    location_level: "N1"
+    classifications:
+      - id: 9832
+        categories: ["all"]
+      - id: 464
+        categories: ["0"]
+      - id: 2
+        categories: ["0"]
+      - id: 133
+        categories: ["0"]
+    mappings: {}
+    cache_key: "civil_marital_status"
+    cache_ttl_days: 365
+
+ipca:
+  inflation:
+    table_id: 7060
+    period: "last"
+    variable_id: "63"
+    location_level: "N1"
+    classifications: []
+    mappings: {}
+    cache_key: "ipca_monthly"
+    cache_ttl_days: 7
+
+pnad:
+  employment:
+    table_id: 6318
+    period: "last"
+    variable_id: "1641"
+    location_level: "N1"
+    classifications:
+      - id: 629
+        categories: ["32387", "32446", "32447"]
+    mappings:
+      "ocupada": "Ocupada"
+      "desocupada": "Desocupada"
+      "fora da força": "Fora da força"
+    cache_key: "pnad_employment"
+    cache_ttl_days: 90
+
+  education:
+    table_id: 5919
+    period: "last"
+    variable_id: "606"
+    location_level: "N1"
+    classifications:
+      - id: 1568
+        categories: ["all"]
+    mappings: {}
+    cache_key: "pnad_education"
+    cache_ttl_days: 90
+
+  income:
+    table_id: 10296
+    period: "2022"
+    variable_id: "13604"
+    location_level: "N1"
+    classifications:
+      - id: 386
+        categories: ["all"]
+      - id: 2
+        categories: ["6794"]
+      - id: 86
+        categories: ["95251"]
+    mappings: {}
+    cache_key: "pnad_income"
+    cache_ttl_days: 180
+
+pns:
+  scale_splits:
+    Muito bom: 0.35
+    Bom: 0.65
+    Ruim: 0.70
+    Muito ruim: 0.30
+
+  health_assessment:
+    table_id: 7666
+    period: "2019"
+    variable_id: "2667"
+    location_level: "N1"
+    classifications:
+      - id: 12258
+        categories: ["all"]
+      - id: 2
+        categories: ["6794"]
+    mappings: {}
+    cache_key: "pns_health_assessment"
+    cache_ttl_days: 365
+
+  chronic_disease:
+    table_id: 7972
+    period: "2019"
+    variable_id: "11220"
+    location_level: "N1"
+    classifications:
+      - id: 2
+        categories: ["6794"]
+      - id: 1
+        categories: ["6795"]
+    mappings: {}
+    cache_key: "pns_chronic_disease"
+    cache_ttl_days: 365
+
+report:
+  data_sources:
+    - name: "Censo Demográfico (IBGE)"
+      table_id: 9606
+      period: "2022"
+    - name: "PNAD Contínua (IBGE)"
+      table_id: 6318
+      period: "last"
+    - name: "PNS (IBGE)"
+      table_id: 7666
+      period: "2019"
+    - name: "IPCA (IBGE)"
+      table_id: 7060
+      period: "last"
