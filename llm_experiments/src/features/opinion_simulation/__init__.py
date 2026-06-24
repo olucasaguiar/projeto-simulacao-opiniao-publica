@@ -1,9 +1,19 @@
 from .handler import run_simulation
-from .models import OpinionQuestion, ModelOpinionResponse, SimulationComparison
+from .models import (
+    SurveyQuestion,
+    FormResults,
+    FormResponse,
+    PersonaSimulationResult,
+    Survey,
+    SimulationConfig,
+)
 
 __all__ = [
     "run_simulation",
-    "OpinionQuestion",
-    "ModelOpinionResponse",
-    "SimulationComparison",
+    "SurveyQuestion",
+    "FormResults",
+    "FormResponse",
+    "PersonaSimulationResult",
+    "Survey",
+    "SimulationConfig",
 ]

@@ -1,5 +1,5 @@
 from features.generate_persona.models import Persona
-from .models import OpinionQuestion
+from .models import SurveyQuestion
 
 
 def build_persona_system_prompt(persona: Persona) -> str:
@@ -34,15 +34,19 @@ def build_persona_system_prompt(persona: Persona) -> str:
     return prompt
 
 
-def build_question_prompt(question: OpinionQuestion) -> str:
+def build_question_prompt(question: SurveyQuestion) -> str:
     """
     Builds the user prompt for the given question.
     """
-    options_text = "\n".join([f"- {opt}" for opt in question.options])
+    options_text = "\n".join(
+        [f"{key}) {value}" for key, value in question.options.items()]
+    )
     prompt = (
         f"Tópico: {question.topic}\n"
-        f"Pergunta: {question.question_text}\n\n"
-        f"Opções disponíveis:\n{options_text}\n\n"
-        "Qual opção você escolhe e por que?"
+        f"Pergunta: {question.text}\n\n"
+        f"Alternativas:\n{options_text}\n\n"
+        "Responda APENAS com um JSON válido no formato:\n"
+        '{"answer_key": "letra_escolhida", "answer_value": "texto_da_alternativa", "explanation": "sua justificativa"}\n'
+        "Não adicione nenhum texto antes ou depois do JSON."
     )
     return prompt

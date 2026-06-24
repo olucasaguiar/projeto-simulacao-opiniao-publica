@@ -1,6 +1,7 @@
 from settings import settings
 from infrastructure.sidra import SidraQueryBuilder, SidraVariableResponse
 
+
 def test_censo_race_query(sidra_client):
     """
     Test real Censo 2022 query (Table 9606) for race/color distribution.
@@ -14,9 +15,9 @@ def test_censo_race_query(sidra_client):
     )
     for c in cfg.classifications:
         builder.select_classification(c.id, c.categories)
-        
+
     data = sidra_client.get_data(builder)
-    
+
     assert isinstance(data, list)
     assert len(data) > 0
     for item in data:
@@ -24,6 +25,7 @@ def test_censo_race_query(sidra_client):
         assert item.resultados
         for res in item.resultados:
             assert res.series
+
 
 def test_civil_marital_status_query(sidra_client):
     """
@@ -38,14 +40,15 @@ def test_civil_marital_status_query(sidra_client):
     )
     for c in cfg.classifications:
         builder.select_classification(c.id, c.categories)
-        
+
     data = sidra_client.get_data(builder)
-    
+
     assert isinstance(data, list)
     assert len(data) > 0
     for item in data:
         assert isinstance(item, SidraVariableResponse)
         assert item.resultados
+
 
 def test_ipca_inflation_query(sidra_client):
     """
@@ -60,14 +63,15 @@ def test_ipca_inflation_query(sidra_client):
     )
     for c in cfg.classifications:
         builder.select_classification(c.id, c.categories)
-        
+
     data = sidra_client.get_data(builder)
-    
+
     assert isinstance(data, list)
     assert len(data) > 0
     for item in data:
         assert isinstance(item, SidraVariableResponse)
         assert item.resultados
+
 
 def test_pnad_employment_query(sidra_client):
     """
@@ -82,14 +86,15 @@ def test_pnad_employment_query(sidra_client):
     )
     for c in cfg.classifications:
         builder.select_classification(c.id, c.categories)
-        
+
     data = sidra_client.get_data(builder)
-    
+
     assert isinstance(data, list)
     assert len(data) > 0
     for item in data:
         assert isinstance(item, SidraVariableResponse)
         assert item.resultados
+
 
 def test_pns_health_assessment_query(sidra_client):
     """
@@ -104,9 +109,9 @@ def test_pns_health_assessment_query(sidra_client):
     )
     for c in cfg.classifications:
         builder.select_classification(c.id, c.categories)
-        
+
     data = sidra_client.get_data(builder)
-    
+
     assert isinstance(data, list)
     assert len(data) > 0
     for item in data:

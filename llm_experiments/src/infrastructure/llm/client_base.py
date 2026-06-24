@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, List, Any
+from .models import ModelAnswer
 
 
 class BaseLLMClient(ABC):
@@ -25,3 +26,36 @@ class BaseLLMClient(ABC):
             The string response from the LLM.
         """
         pass
+
+    @abstractmethod
+    def question_answer(
+        self,
+        system: str,
+        question: str,
+        options: Dict[str, str],
+        messages: List[Dict[str, str]] = None,
+        **kwargs,
+    ) -> ModelAnswer:
+        """
+        Recebe uma pergunta e opções, prepara o modelo para responder
+        exclusivamente com a opção escolhida e justificativa.
+
+        Args:
+            system: system prompt (persona)
+            question: texto da pergunta
+            options: dict de opções {key: value} ex: {"a": "Concordo", "b": "Discordo"}
+            messages: histórico de mensagens anteriores do chat
+                      [{"role": "assistant", "content": "..."}, {"role": "user", "content": "..."}]
+            **kwargs: parâmetros extras específicos do adapter
+
+        Returns:
+            ModelAnswer com answer=(key, value) e explanation
+        """
+        pass
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Default cleanup — subclasses with GPU resources should override."""
+        return False

@@ -2,24 +2,27 @@ import pytest
 from features.generate_persona.sampler import WeightedDistribution, PersonaSampler
 from features.generate_persona.models import Persona
 
+
 def test_weighted_distribution_sampling():
     """
     Test that WeightedDistribution samples elements correctly.
     """
     data = {"Option A": 0.8, "Option B": 0.2}
     dist = WeightedDistribution.from_dict(data)
-    
+
     assert dist.labels == ("Option A", "Option B")
     assert dist.weights == (0.8, 0.2)
-    
+
     for _ in range(50):
         val = dist.sample()
         assert val in ("Option A", "Option B")
+
 
 def test_weighted_distribution_empty_raises():
     dist = WeightedDistribution((), ())
     with pytest.raises(ValueError, match="Cannot sample from an empty distribution"):
         dist.sample()
+
 
 def test_persona_sampler():
     """
@@ -38,7 +41,7 @@ def test_persona_sampler():
     marital_status = WeightedDistribution.from_dict({"Solteiro(a)": 1.0})
     religion = WeightedDistribution.from_dict({"Católica": 1.0})
     inflation = 0.5
-    
+
     sampler = PersonaSampler(
         race=race,
         gender=gender,
@@ -52,9 +55,9 @@ def test_persona_sampler():
         chronic_disease=chronic_disease,
         marital_status=marital_status,
         religion=religion,
-        inflation_rate=inflation
+        inflation_rate=inflation,
     )
-    
+
     persona = sampler.sample()
     assert isinstance(persona, Persona)
     assert persona.demographic.race == "Parda"
@@ -70,7 +73,7 @@ def test_persona_sampler():
     assert persona.health.has_chronic_disease is False
     assert persona.social.marital_status == "Solteiro(a)"
     assert persona.social.religion == "Católica"
-    
+
     batch = sampler.sample_batch(5)
     assert len(batch) == 5
     for p in batch:

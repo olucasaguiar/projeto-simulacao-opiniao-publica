@@ -1,170 +1,161 @@
 import json
 import logging
 from typing import List
+from datetime import datetime
+from collections import defaultdict
+
 from features.generate_persona.models import Persona
-from infrastructure.llm import BaseLLMClient
+from infrastructure.llm import LLMFactory
 from .models import (
-    OpinionQuestion,
-    ModelOpinionResponse,
+    FormResults,
+    FormResponse,
     PersonaSimulationResult,
-    SimulationComparison,
+    SimulationConfig,
 )
-from .prompt_builder import build_persona_system_prompt, build_question_prompt
+from .prompt_builder import build_persona_system_prompt
 
 logger = logging.getLogger(__name__)
 
 
-def parse_model_response(raw_resp: str, options: List[str]) -> tuple[str, str]:
-    raw_resp_clean = raw_resp.strip()
-
-    # 1. Try parsing whole response as JSON
-    try:
-        data = json.loads(raw_resp_clean)
-        if isinstance(data, dict) and "chosen_option" in data:
-            return str(data["chosen_option"]), str(data.get("explanation", ""))
-    except json.JSONDecodeError:
-        pass
-
-    # 2. Try finding substring starting with { and ending with }
-    # Try sliding window from outside in
-    start_idx = 0
-    while True:
-        start_idx = raw_resp_clean.find("{", start_idx)
-        if start_idx == -1:
-            break
-        end_idx = raw_resp_clean.rfind("}")
-        while end_idx > start_idx:
-            try:
-                json_str = raw_resp_clean[start_idx : end_idx + 1]
-                data = json.loads(json_str)
-                if isinstance(data, dict) and "chosen_option" in data:
-                    return str(data["chosen_option"]), str(data.get("explanation", ""))
-            except json.JSONDecodeError:
-                pass
-            end_idx = raw_resp_clean.rfind("}", start_idx, end_idx)
-        start_idx += 1
-
-    # 3. Fallback: case-insensitive search of option names in text
-    for opt in options:
-        if opt.lower() in raw_resp_clean.lower():
-            return opt, raw_resp_clean
-
-    return "Erro/Indefinido", raw_resp_clean
-
-
 def run_simulation(
+    config: SimulationConfig,
     personas: List[Persona],
-    questions: List[OpinionQuestion],
-    clients: List[BaseLLMClient],
-) -> List[SimulationComparison]:
+) -> List[PersonaSimulationResult]:
     """
-    Run the opinion simulation for a batch of personas across multiple models.
-    Loads and runs one model at a time, then frees its memory to save GPU resources.
+    Executa a simulação baseada na configuração e lista de personas.
+    O loop é feito por: Modelo -> Persona -> Repetição -> Pergunta.
+    O context manager de cada client cuida de liberar recursos.
     """
-    responses_map = {}
+    factory = LLMFactory()
 
-    for client in clients:
-        logger.info(f"Starting execution for model: {client.model_id}")
+    # Criar um logger de arquivo para auditoria
+    file_handler = logging.FileHandler(
+        f"{config.results_path}/simulation_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+    )
+    file_handler.setFormatter(
+        logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    )
+    logger.addHandler(file_handler)
 
-        for question in questions:
-            # Schema for parsing JSON from models
-            json_schema = {
-                "type": "object",
-                "properties": {
-                    "chosen_option": {
-                        "type": "string",
-                        "description": "The exact text of the chosen option.",
-                        "enum": question.options,
-                    },
-                    "explanation": {
-                        "type": "string",
-                        "description": "The reasoning behind the choice in the first person.",
-                    },
-                },
-                "required": ["chosen_option", "explanation"],
-                "additionalProperties": False,
-            }
+    # Armazena todas as respostas coletadas.
+    # A estrutura aqui é um dicionário temporário para agregar e formar os FormResponse.
+    # Map: persona_id -> question_id -> list of ModelAnswer (across repetitions & models)
+    # Actually, the requirement asks to compute FormResults per persona, per question.
+    # We will accumulate by (persona_id, question_id).
+    results_map = defaultdict(lambda: defaultdict(list))
 
-            user_prompt = build_question_prompt(question)
+    # Iterate for each model
+    for model_id in config.models:
+        client = factory.provide(model_id)
+        if not client:
+            logger.error(
+                f"Modelo '{model_id}' não suportado/encontrado no factory. Pulando."
+            )
+            continue
 
+        logger.info(f"Iniciando simulação com o modelo: {model_id}")
+
+        with client:
             for persona in personas:
                 system_prompt = build_persona_system_prompt(persona)
 
-                try:
-                    logger.debug(
-                        f"Querying {client.model_id} for persona {str(persona.id)[:8]}..."
-                    )
-                    raw_resp = client.generate(
-                        prompt=user_prompt,
-                        system_prompt=system_prompt,
-                        json_schema=json_schema,
-                    )
+                for rep in range(config.repetitions):
+                    # Histórico limpo a cada nova repetição
+                    messages = []
 
-                    chosen, explanation = parse_model_response(
-                        raw_resp, question.options
-                    )
+                    for survey in config.surveys:
+                        for question in survey.questions:
+                            logger.debug(
+                                f"[{model_id}] Persona {str(persona.id)[:8]} | Rep {rep + 1} | Pergunta {question.id}"
+                            )
 
-                    # Validate chosen option against available options (case-insensitive alignment)
-                    matched_option = "Erro/Indefinido"
-                    for opt in question.options:
-                        if chosen.lower() == opt.lower():
-                            matched_option = opt
-                            break
+                            try:
+                                answer = client.question_answer(
+                                    system=system_prompt,
+                                    question=question.text,
+                                    options=question.options,
+                                    messages=messages,
+                                )
 
-                    # If we couldn't match, check if raw explanation contains it
-                    if matched_option == "Erro/Indefinido":
-                        for opt in question.options:
-                            if opt.lower() in explanation.lower():
-                                matched_option = opt
-                                break
+                                # Atualizar o histórico para a próxima pergunta da mesma repetição
+                                options_str = "\n".join(
+                                    [f"{k}) {v}" for k, v in question.options.items()]
+                                )
+                                messages.append(
+                                    {
+                                        "role": "assistant",
+                                        "content": f"Pergunta: {question.text}\nAlternativas:\n{options_str}",
+                                    }
+                                )
+                                messages.append(
+                                    {
+                                        "role": "user",
+                                        "content": json.dumps(
+                                            {
+                                                "answer_key": answer.answer[0],
+                                                "answer_value": answer.answer[1],
+                                                "explanation": answer.explanation,
+                                            },
+                                            ensure_ascii=False,
+                                        ),
+                                    }
+                                )
 
-                    response_obj = ModelOpinionResponse(
-                        model_id=client.model_id,
-                        question_id=question.id,
-                        persona_id=str(persona.id),
-                        chosen_option=matched_option,
-                        explanation=explanation,
-                    )
+                                # Logar auditoria
+                                logger.info(
+                                    f"RESULT | Model={model_id} | Persona={str(persona.id)[:8]} | Rep={rep + 1} | Q={question.id} | Key={answer.answer[0]}"
+                                )
 
-                except Exception as e:
-                    logger.error(f"Error querying {client.model_id}: {e}")
-                    response_obj = ModelOpinionResponse(
-                        model_id=client.model_id,
-                        question_id=question.id,
-                        persona_id=str(persona.id),
-                        chosen_option="Erro",
-                        explanation=str(e),
-                    )
+                                # Salvar
+                                results_map[persona.id][question.id].append(answer)
 
-                responses_map[(client.model_id, question.id, str(persona.id))] = (
-                    response_obj
+                            except Exception as e:
+                                logger.error(
+                                    f"Erro ao processar modelo={model_id}, persona={str(persona.id)[:8]}, Q={question.id}: {e}"
+                                )
+
+    logger.removeHandler(file_handler)
+    file_handler.close()
+
+    # Agregar os resultados e calcular as distribuições (FormResults)
+    persona_results = []
+
+    # Build list of all questions to simplify building responses
+    all_questions = {}
+    for survey in config.surveys:
+        for q in survey.questions:
+            all_questions[q.id] = q
+
+    for persona in personas:
+        responses = []
+        for q_id, q_obj in all_questions.items():
+            answers = results_map[persona.id].get(q_id, [])
+
+            # Calcular distribuição
+            distribution = {}
+            total = len(answers)
+            if total > 0:
+                counts = defaultdict(int)
+                for a in answers:
+                    counts[a.answer[0]] += 1
+                for key in q_obj.options.keys():
+                    distribution[key] = counts.get(key, 0) / total
+            else:
+                for key in q_obj.options.keys():
+                    distribution[key] = 0.0
+
+            result = FormResults(distribution=distribution)
+            responses.append(
+                FormResponse(
+                    question=q_obj.text,
+                    options=q_obj.options,
+                    answers=answers,
+                    result=result,
                 )
-
-        # Free GPU memory immediately after processing all questions for this model
-        if hasattr(client, "free_memory"):
-            logger.info(f"Deallocating model from memory: {client.model_id}")
-            try:
-                client.free_memory()
-            except Exception as e:
-                logger.error(f"Error deallocating model {client.model_id}: {e}")
-
-    # Restructure results into original List[SimulationComparison] layout
-    comparisons = []
-    for question in questions:
-        persona_results = []
-        for persona in personas:
-            model_responses = []
-            for client in clients:
-                resp = responses_map.get(
-                    (client.model_id, question.id, str(persona.id))
-                )
-                if resp:
-                    model_responses.append(resp)
-            persona_results.append(
-                PersonaSimulationResult(persona=persona, responses=model_responses)
             )
-        comparisons.append(
-            SimulationComparison(question=question, persona_results=persona_results)
+
+        persona_results.append(
+            PersonaSimulationResult(persona=persona, responses=responses)
         )
 
-    return comparisons
+    return persona_results

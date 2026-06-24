@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 class LlmModelConfig(BaseModel):
     id: str
     provider: str
+    adapter: str
     huggingface_id: Optional[str] = None
 
 

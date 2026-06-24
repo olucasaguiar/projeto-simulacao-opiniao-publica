@@ -12,6 +12,7 @@ from settings import settings
 from infrastructure.sidra import SidraClient
 from infrastructure.cache import DistributionCache
 
+
 @pytest.fixture(scope="session")
 def sidra_client():
     """
@@ -19,6 +20,7 @@ def sidra_client():
     """
     with SidraClient() as client:
         yield client
+
 
 @pytest.fixture(scope="session")
 def db_cache():
