@@ -1,0 +1,22 @@
+cenario:
+  personas: 1
+  reproducoes: 1
+  modelos:
+    - sabiazinho-4
+
+resultados:
+  caminho: "./assets/surveys_tests/results/percepcao_democracia_test"
+
+pesquisas:
+  - id: percepcao-democracia-test
+    titulo: "Percepção dos Brasileiros Acerca da Democracia - Teste"
+    perguntas:
+      - id: P04
+        topico: "Participação Política"
+        texto: "Você diria que tem muita vontade, alguma vontade ou nenhuma vontade de participar da vida política na sua cidade?"
+        alternativas:
+          a: "Muita vontade"
+          b: "Alguma vontade"
+          c: "Nenhuma vontade"
+          d: "Não sabe"
+          e: "Não respondeu"

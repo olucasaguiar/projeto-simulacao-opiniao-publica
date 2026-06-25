@@ -5,7 +5,7 @@ cenario:
     - sabiazinho-4
 
 resultados:
-  caminho: "./docs/results"
+  caminho: "./assets/surveys/results/template"
 
 pesquisas:
   - id: percepcao-democracia

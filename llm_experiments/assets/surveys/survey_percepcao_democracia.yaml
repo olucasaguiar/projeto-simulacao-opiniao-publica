@@ -1,0 +1,53 @@
+cenario:
+  personas: 2000
+  reproducoes: 5
+  modelos:
+    - sabia-4
+    - sabiazinho-4
+
+resultados:
+  caminho: "./assets/surveys/results/percepcao_democracia"
+
+pesquisas:
+  - id: percepcao-democracia
+    titulo: "Percepção dos Brasileiros Acerca da Democracia"
+    perguntas:
+      - id: P02
+        topico: "Prioridades Políticas"
+        texto: "Qual destas propostas você acha que deveria ser prioridade de um(a) POLÍTICO(A)?"
+        alternativas:
+          a: "Reduzir as desigualdades sociais"
+          b: "Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)"
+          c: "Aumentar os impostos de grandes fortunas (ou dos mais ricos)"
+          d: "Incentivar a geração de empregos"
+          e: "Combater as mudanças climáticas/desmatamento"
+          f: "Ampliar o uso de energias renováveis"
+          g: "Preservar os valores ligados à família"
+          h: "Defender a igualdade entre homens e mulheres"
+          i: "Melhorar a qualidade da Saúde"
+          j: "Melhorar a qualidade da Educação"
+          k: "Reduzir a violência"
+          l: "Ampliar os espaços de participação política da população"
+          m: "Não sabe"
+          n: "Não respondeu"
+      - id: P03
+        topico: "Combate à Fake News"
+        texto: "Algumas pessoas dizem que a divulgação de fake news, ou seja, de notícias ou conteúdos falsos podem prejudicar a democracia. Pensando nisso, quais dessas opções você acredita que poderiam contribuir no combate à divulgação de fake news?"
+        alternativas:
+          a: "Ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (empresas de tecnologia como Facebook, Youtube, WhatsApp, Twitter/X, etc.)"
+          b: "Responsabilizar e punir as empresas de tecnologia e de comunicação que não removerem postagens com notícias ou conteúdos falsos"
+          c: "Ampliar a regulamentação, as regras a serem cumpridas pelos usuários que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros"
+          d: "Responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+          e: "Ampliar a regulamentação, as regras a serem cumpridas por políticos/candidatos que divulgam ou compartilham fake news, criadas por eles próprios ou por terceiros"
+          f: "Responsabilizar, punir ou cassar políticos/candidatos que divulgam ou compartilham postagens com notícias ou conteúdos falsos"
+          g: "Não sabe"
+          h: "Não respondeu"
+      - id: P04
+        topico: "Participação Política"
+        texto: "Você diria que tem muita vontade, alguma vontade ou nenhuma vontade de participar da vida política na sua cidade?"
+        alternativas:
+          a: "Muita vontade"
+          b: "Alguma vontade"
+          c: "Nenhuma vontade"
+          d: "Não sabe"
+          e: "Não respondeu"

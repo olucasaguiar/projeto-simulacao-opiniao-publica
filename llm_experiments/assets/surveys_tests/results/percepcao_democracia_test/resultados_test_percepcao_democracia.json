@@ -1,0 +1,58 @@
+[
+  {
+    "persona": {
+      "id": "db52df68-f520-4ddd-871d-330a0fe15025",
+      "demographic": {
+        "age_group": "45-54",
+        "gender": "Masculino",
+        "race": "Branca",
+        "region": "Norte",
+        "urban": true
+      },
+      "economic": {
+        "education_level": "Ensino médio completo ou equivalente",
+        "employment_status": "Fora da força",
+        "income_per_capita": "Até 1/4 de salário mínimo",
+        "inflation_rate": 0.58
+      },
+      "health": {
+        "health_self_assessment": "Ruim",
+        "has_chronic_disease": true
+      },
+      "social": {
+        "marital_status": "Solteiro(a)",
+        "religion": "Evangélica"
+      }
+    },
+    "responses": [
+      {
+        "question": "Você diria que tem muita vontade, alguma vontade ou nenhuma vontade de participar da vida política na sua cidade?",
+        "options": {
+          "a": "Muita vontade",
+          "b": "Alguma vontade",
+          "c": "Nenhuma vontade",
+          "d": "Não sabe",
+          "e": "Não respondeu"
+        },
+        "answers": [
+          {
+            "answer": [
+              "c",
+              "Nenhuma vontade"
+            ],
+            "explanation": "Como estou fora da força de trabalho e tenho uma renda muito baixa, a minha preocupação diária é apenas sobreviver e cuidar da minha família. A política parece distante da minha realidade, e nunca tive incentivo ou oportunidade para me envolver. Além disso, muitas vezes vejo políticos desonestos, o que me afasta ainda mais dessa participação."
+          }
+        ],
+        "result": {
+          "distribution": {
+            "a": 0.0,
+            "b": 0.0,
+            "c": 1.0,
+            "d": 0.0,
+            "e": 0.0
+          }
+        }
+      }
+    ]
+  }
+]
