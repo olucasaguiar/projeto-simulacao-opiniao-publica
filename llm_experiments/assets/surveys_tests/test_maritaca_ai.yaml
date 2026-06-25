@@ -1,0 +1,22 @@
+cenario:
+  personas: 1
+  reproducoes: 1
+  modelos:
+    - sabia-4
+    - sabiazinho-4
+
+resultados:
+  caminho: "./assets/surveys_tests/results/maritaca"
+
+pesquisas:
+  - id: percepcao-democracia
+    titulo: "Percepção sobre Democracia"
+    perguntas:
+      - id: 1
+        topico: "Política"
+        texto: "A democracia é a melhor forma de governo?"
+        alternativas:
+          a: "Concordo totalmente"
+          b: "Concordo parcialmente"
+          c: "Discordo parcialmente"
+          d: "Discordo totalmente"

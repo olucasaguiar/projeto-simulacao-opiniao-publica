@@ -1,0 +1,21 @@
+cenario:
+  personas: 1
+  reproducoes: 3
+  modelos:
+    - sabiazinho-4
+
+resultados:
+  caminho: "./docs/results"
+
+pesquisas:
+  - id: percepcao-democracia
+    titulo: "Percepção sobre Democracia"
+    perguntas:
+      - id: 1
+        topico: "Política"
+        texto: "A democracia é a melhor forma de governo?"
+        alternativas:
+          a: "Concordo totalmente"
+          b: "Concordo parcialmente"
+          c: "Discordo parcialmente"
+          d: "Discordo totalmente"

@@ -59,14 +59,14 @@ def main() -> None:
         description="Executar simulação de opinião com LLMs."
     )
     parser.add_argument(
-        "--config",
+        "--survey",
         required=True,
         help="Caminho para o arquivo YAML de configuração da pesquisa.",
     )
     args = parser.parse_args()
 
     # Load configuration
-    config_path = Path(args.config)
+    config_path = Path(args.survey)
     if not config_path.exists():
         logger.error(f"Arquivo de configuração não encontrado: {config_path}")
         return

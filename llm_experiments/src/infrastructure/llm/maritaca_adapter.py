@@ -1,18 +1,25 @@
 import os
 import json
+import re
 import time
 import httpx
-from typing import Optional, Dict, Any, List
+import logging
+from typing import Dict, List, Any
+
 from .client_base import BaseLLMClient
 from .models import ModelAnswer
 from settings import settings
 
+logger = logging.getLogger(__name__)
+
 
 class MaritacaAdapter(BaseLLMClient):
-    def __init__(self, model_id: str):
+    def __init__(
+        self, model_id: str, maritaca_api_key: str = os.getenv("MARITACA_API_KEY", None)
+    ):
         super().__init__(model_id)
-        self.api_key = os.environ.get("MARITACA_API_KEY")
-        if not self.api_key:
+        self.maritaca_api_key = maritaca_api_key
+        if not self.maritaca_api_key:
             raise ValueError("MARITACA_API_KEY environment variable is required.")
 
         self.base_url = settings.llm.maritaca.base_url
@@ -24,60 +31,121 @@ class MaritacaAdapter(BaseLLMClient):
 
         with httpx.Client(timeout=self.timeout) as client:
             for attempt in range(max_retries):
-                response = client.post(endpoint, headers=headers, json=payload)
-                if response.status_code == 429:
+                try:
+                    logger.info(
+                        f"Sending request to {endpoint} (Attempt {attempt + 1}/{max_retries})"
+                    )
+                    response = client.post(endpoint, headers=headers, json=payload)
+                    if response.status_code == 429:
+                        if attempt == max_retries - 1:
+                            logger.error(
+                                "Max retries exceeded due to rate limiting (429)."
+                            )
+                            response.raise_for_status()
+                        wait_time = base_wait_time * (2**attempt)
+                        logger.warning(
+                            f"Rate limited (429). Waiting {wait_time}s before retry."
+                        )
+                        time.sleep(wait_time)
+                        continue
+
+                    response.raise_for_status()
+                    logger.info("Request successful.")
+                    return response.json()
+                except httpx.HTTPError as e:
+                    logger.error(f"HTTP error occurred: {e}")
                     if attempt == max_retries - 1:
-                        response.raise_for_status()
-                    wait_time = base_wait_time * (2**attempt)
-                    time.sleep(wait_time)
-                    continue
-                response.raise_for_status()
-                return response.json()
+                        raise
+
         raise Exception("Max retries exceeded")
 
-    def generate(
+    def _build_chat_messages(
         self,
-        prompt: str,
-        system_prompt: Optional[str] = None,
-        json_schema: Optional[Dict[str, Any]] = None,
-    ) -> str:
+        question: str,
+        options: Dict[str, str],
+        historical_messages: List[Dict[str, str]],
+    ) -> List[Dict[str, str]]:
+        chat_messages = []
 
-        headers = {
-            "Authorization": f"Key {self.api_key}",
-            "Content-Type": "application/json",
+        if historical_messages:
+            chat_messages.extend(historical_messages)
+
+        options_text = "\n".join([f"{k}: {v}" for k, v in options.items()])
+        user_prompt = (
+            f"{question}\n\n"
+            f"Opções:\n{options_text}\n\n"
+            f"O JSON deve ter as chaves 'answer' (apenas a letra da opção escolhida) e 'explanation' (resumo do porquê)."
+        )
+        chat_messages.append({"role": "user", "content": user_prompt})
+        return chat_messages
+
+    def _build_payload(
+        self, system: str, chat_messages: List[Dict[str, str]], kwargs: Dict[str, Any]
+    ) -> dict:
+        schema = {
+            "type": "object",
+            "properties": {
+                "answer": {
+                    "type": "string",
+                    "description": "A letra da alternativa escolhida para a sua resposta",
+                },
+                "explanation": {
+                    "type": "string",
+                    "description": "Justificativa em relação a alternativa escolhida",
+                },
+            },
+            "required": ["answer", "explanation"],
         }
-
-        # Maritaca requires an array of messages
-        messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-
-        messages.append({"role": "user", "content": prompt})
 
         payload = {
             "model": self.model_id,
-            "messages": messages,
-            "max_tokens": 1024,
-            "temperature": 0.7,
+            "instructions": system,
+            "input": chat_messages,
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": "response_schema",
+                    "schema": schema,
+                    "strict": True,
+                }
+            },
+            "top_p": kwargs.get("top_p", 1.0),
+            "temperature": kwargs.get("temperature", 0.1),
+            "max_output_tokens": kwargs.get("max_output_tokens", 150),
         }
 
-        if json_schema:
-            # Maritaca structure for JSON schema extraction
-            payload["response_format"] = {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "response_schema",
-                    "schema": json_schema,
-                    "strict": True,
-                },
-            }
+        return payload
 
-        # Optional: We could use the official /chat/completions endpoint
-        # to ensure compatibility with standard schemas.
-        endpoint = f"{self.base_url}/chat/completions"
+    def _parse_model_response(self, text: str, options: Dict[str, str]) -> ModelAnswer:
+        try:
+            match = re.search(r"\{.*\}", text.strip(), re.DOTALL)
+            if match:
+                data = json.loads(match.group(0))
+            else:
+                data = json.loads(text.strip())
 
-        data = self._post_with_backoff(endpoint, headers, payload)
-        return data["choices"][0]["message"]["content"]
+            ans_key = str(data.get("answer", "")).lower().strip()
+            explanation = str(data.get("explanation", "")).strip()
+
+            if ans_key in options:
+                return ModelAnswer(
+                    answer=(ans_key, options[ans_key]), explanation=explanation
+                )
+
+            for key, value in options.items():
+                if re.search(rf"\b{re.escape(key.lower())}\b", ans_key):
+                    return ModelAnswer(answer=(key, value), explanation=explanation)
+
+            return ModelAnswer(
+                answer=(ans_key, "Opção inválida"), explanation=explanation
+            )
+        except Exception as error:
+            logger.error(f"Failed to parse JSON from response: {text}")
+            logger.debug(f"Exception details: {error}")
+            return ModelAnswer(
+                answer=("error", str(error)),
+                explanation=f"Falha ao extrair JSON da resposta original: {text}",
+            )
 
     def question_answer(
         self,
@@ -88,79 +156,15 @@ class MaritacaAdapter(BaseLLMClient):
         **kwargs,
     ) -> ModelAnswer:
         headers = {
-            "Authorization": f"Key {self.api_key}",
+            "Authorization": f"Key {self.maritaca_api_key}",
             "Content-Type": "application/json",
         }
 
-        api_messages = []
-        if system:
-            api_messages.append({"role": "system", "content": system})
+        chat_messages = self._build_chat_messages(question, options, messages)
+        payload = self._build_payload(system, chat_messages, kwargs)
 
-        if messages:
-            api_messages.extend(messages)
-
-        prompt_lines = [question, ""]
-        for k, v in options.items():
-            prompt_lines.append(f"{k}) {v}")
-        prompt = "\n".join(prompt_lines)
-
-        api_messages.append({"role": "user", "content": prompt})
-
-        schema = {
-            "type": "object",
-            "properties": {
-                "opcao": {
-                    "type": "string",
-                    "description": "A letra da opção escolhida",
-                },
-                "justificativa": {
-                    "type": "string",
-                    "description": "Justificativa da escolha",
-                },
-            },
-            "required": ["opcao", "justificativa"],
-        }
-
-        payload = {
-            "model": self.model_id,
-            "messages": api_messages,
-            "max_tokens": kwargs.get("max_tokens", 1024),
-            "temperature": kwargs.get("temperature", 0.7),
-            "response_format": {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "response_schema",
-                    "schema": schema,
-                    "strict": True,
-                },
-            },
-        }
-
-        endpoint = f"{self.base_url}/chat/completions"
+        endpoint = f"{self.base_url}/v1/responses"
         data = self._post_with_backoff(endpoint, headers, payload)
-        content = data["choices"][0]["message"]["content"]
 
-        try:
-            parsed = json.loads(content)
-            opcao = str(parsed.get("opcao", "")).lower().strip()
-            justificativa = str(parsed.get("justificativa", "")).strip()
-
-            if len(opcao) > 0 and opcao[0] in options:
-                key = opcao[0]
-                return ModelAnswer(
-                    answer=(key, options[key]), explanation=justificativa
-                )
-
-            for k in options:
-                if k in opcao:
-                    return ModelAnswer(
-                        answer=(k, options[k]), explanation=justificativa
-                    )
-        except Exception:
-            pass
-
-        first_key = list(options.keys())[0]
-        return ModelAnswer(
-            answer=(first_key, options[first_key]),
-            explanation=f"Parse error. Raw: {content}",
-        )
+        content = data["output"][0]["content"][0]["text"]
+        return self._parse_model_response(content, options)

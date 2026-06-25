@@ -1,172 +1,64 @@
+import gc
 import os
 import json
-from typing import Optional, Dict, List, Any
+import logging
+import re
+from typing import Dict, List, Optional
+
+import torch
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    GenerationConfig,
+)
+
+from settings import settings
+
 from .client_base import BaseLLMClient
 from .models import ModelAnswer
 
+logger = logging.getLogger(__name__)
+
 
 class LlamaAdapter(BaseLLMClient):
-    def __init__(self, model_id: str, huggingface_id: str):
+    def __init__(
+        self,
+        model_id: str,
+        huggingface_id: str,
+        huggingface_token: Optional[str] = os.getenv("HF_TOKEN", None),
+    ):
         super().__init__(model_id)
         self.huggingface_id = huggingface_id
+        self.huggingface_token = huggingface_token
+        self.device = settings.llm.local.device
+        self.quantization = settings.llm.local.quantization
 
         # Lazy loading to avoid blocking when initializing other models
         self.model = None
         self.tokenizer = None
-        self.device = "cpu"
 
-    def _initialize(self):
-        if self.model is not None:
-            return
-
-        import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
-
-        hf_token = os.getenv("HF_TOKEN")
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-
-        print(f"Loading {self.huggingface_id} to {self.device}...")
+    def __enter__(self):
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+        )
         self.tokenizer = AutoTokenizer.from_pretrained(
-            self.huggingface_id, token=hf_token
+            self.huggingface_id, token=self.huggingface_token
         )
         self.model = AutoModelForCausalLM.from_pretrained(
             self.huggingface_id,
+            token=self.huggingface_token,
             device_map="auto",
-            torch_dtype=torch.float16,
-            token=hf_token,
+            dtype=torch.bfloat16,
+            quantization_config=quantization_config,
         )
 
-    def generate(
-        self,
-        prompt: str,
-        system_prompt: Optional[str] = None,
-        json_schema: Optional[Dict[str, Any]] = None,
-    ) -> str:
-        self._initialize()
+        return self
 
-        messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-        messages.append({"role": "user", "content": prompt})
-
-        if json_schema:
-            schema_instructions = f"\n\nResponda APENAS com um objeto JSON válido que obedeça ao seguinte schema:\n{json.dumps(json_schema, indent=2)}\nNão adicione nenhum texto antes ou depois do JSON."
-            messages[-1]["content"] += schema_instructions
-
-        text_prompt = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-
-        inputs = self.tokenizer(text_prompt, return_tensors="pt").to(self.model.device)
-
-        outputs = self.model.generate(
-            **inputs,
-            max_new_tokens=1024,
-            temperature=0.7,
-            do_sample=True,
-            pad_token_id=self.tokenizer.eos_token_id,
-        )
-
-        generated_ids = outputs[0][inputs.input_ids.shape[-1] :]
-        response_text = self.tokenizer.decode(generated_ids, skip_special_tokens=True)
-
-        return response_text
-
-    def question_answer(
-        self,
-        system: str,
-        question: str,
-        options: Dict[str, str],
-        messages: List[Dict[str, str]] = None,
-        **kwargs,
-    ) -> ModelAnswer:
-        self._initialize()
-
-        # Build prompt for QA
-        prompt_lines = [question, ""]
-        for k, v in options.items():
-            prompt_lines.append(f"{k}) {v}")
-        prompt = "\n".join(prompt_lines)
-
-        schema = {
-            "type": "object",
-            "properties": {
-                "opcao": {
-                    "type": "string",
-                    "description": "A letra da opção escolhida",
-                },
-                "justificativa": {
-                    "type": "string",
-                    "description": "Justificativa da escolha",
-                },
-            },
-            "required": ["opcao", "justificativa"],
-        }
-
-        schema_instructions = f"\n\nResponda APENAS com um objeto JSON válido que obedeça ao seguinte schema:\n{json.dumps(schema, indent=2)}\nNão adicione nenhum texto antes ou depois do JSON."
-
-        chat_messages = []
-        if system:
-            chat_messages.append({"role": "system", "content": system})
-
-        if messages:
-            chat_messages.extend(messages)
-
-        chat_messages.append(
-            {"role": "user", "content": f"{prompt}{schema_instructions}"}
-        )
-
-        text_prompt = self.tokenizer.apply_chat_template(
-            chat_messages, tokenize=False, add_generation_prompt=True
-        )
-
-        inputs = self.tokenizer(text_prompt, return_tensors="pt").to(self.model.device)
-
-        outputs = self.model.generate(
-            **inputs,
-            max_new_tokens=kwargs.get("max_tokens", 1024),
-            temperature=kwargs.get("temperature", 0.7),
-            do_sample=True,
-            pad_token_id=self.tokenizer.eos_token_id,
-        )
-
-        generated_ids = outputs[0][inputs.input_ids.shape[-1] :]
-        response_text = self.tokenizer.decode(generated_ids, skip_special_tokens=True)
-
-        try:
-            start = response_text.find("{")
-            end = response_text.rfind("}") + 1
-            if start != -1 and end != 0:
-                json_str = response_text[start:end]
-                data = json.loads(json_str)
-                opcao = str(data.get("opcao", "")).lower().strip()
-                justificativa = str(data.get("justificativa", "")).strip()
-
-                if len(opcao) > 0 and opcao[0] in options:
-                    key = opcao[0]
-                    return ModelAnswer(
-                        answer=(key, options[key]), explanation=justificativa
-                    )
-
-                # fallback iterando nas chaves
-                for k in options:
-                    if k in opcao:
-                        return ModelAnswer(
-                            answer=(k, options[k]), explanation=justificativa
-                        )
-        except Exception:
-            pass
-
-        first_key = list(options.keys())[0]
-        return ModelAnswer(
-            answer=(first_key, options[first_key]),
-            explanation=f"Parse error. Raw: {response_text}",
-        )
-
-    def free_memory(self):
-        import gc
-        import torch
-
+    def __exit__(self, exc_type, exc_val, exc_tb):
         if self.model is not None:
             del self.model
             self.model = None
@@ -178,6 +70,100 @@ class LlamaAdapter(BaseLLMClient):
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.free_memory()
         return False
+
+    def _build_chat_messages(
+        self,
+        system: str,
+        question: str,
+        options: Dict[str, str],
+        historical_messages: List[Dict[str, str]] = None,
+    ) -> List[Dict[str, str]]:
+        chat_messages = []
+
+        if system:
+            chat_messages.append({"role": "system", "content": system})
+
+        if historical_messages:
+            chat_messages.extend(historical_messages)
+
+        options_text = "\n".join([f"{k}: {v}" for k, v in options.items()])
+        user_prompt = (
+            f"{question}\n\n"
+            f"Opções:\n{options_text}\n\n"
+            f"Responda fornecendo APENAS um JSON contendo as chaves 'answer' (a letra da alternativa escolhida para a sua resposta) e 'explanation' (justificativa em relação a alternativa escolhida)."
+        )
+        chat_messages.append({"role": "user", "content": user_prompt})
+        return chat_messages
+
+    def _build_generation_config(self, **kwargs) -> GenerationConfig:
+        return GenerationConfig(
+            do_sample=kwargs.get("do_sample", True),
+            temperature=kwargs.get("temperature", 0.1),
+            top_k=kwargs.get("top_k", 50),
+            top_p=kwargs.get("top_p", 1.0),
+            repetition_penalty=kwargs.get("repetition_penalty", 1.2),
+            max_new_tokens=kwargs.get("max_output_tokens", 150),
+            pad_token_id=self.tokenizer.eos_token_id,
+        )
+
+    def _parse_model_response(self, text: str, options: Dict[str, str]) -> ModelAnswer:
+        try:
+            match = re.search(r"\{.*\}", text.strip(), re.DOTALL)
+            if match:
+                data = json.loads(match.group(0))
+            else:
+                data = json.loads(text.strip())
+
+            ans_key = str(data.get("answer", "")).lower().strip()
+            explanation = str(data.get("explanation", "")).strip()
+
+            if ans_key in options:
+                return ModelAnswer(
+                    answer=(ans_key, options[ans_key]), explanation=explanation
+                )
+
+            for key, value in options.items():
+                if re.search(rf"\b{re.escape(key.lower())}\b", ans_key):
+                    return ModelAnswer(answer=(key, value), explanation=explanation)
+
+            return ModelAnswer(
+                answer=(ans_key, "Opção inválida"), explanation=explanation
+            )
+        except Exception as error:
+            logger.error(f"Failed to parse JSON from response: {text}")
+            logger.debug(f"Exception details: {error}")
+            return ModelAnswer(
+                answer=("error", str(error)),
+                explanation=f"Falha ao extrair JSON da resposta original: {text}",
+            )
+
+    def question_answer(
+        self,
+        system: str,
+        question: str,
+        options: Dict[str, str],
+        messages: List[Dict[str, str]] = None,
+        **kwargs,
+    ) -> ModelAnswer:
+        if not self.model or not self.tokenizer:
+            raise RuntimeError("Hugging Face model or tokenizer not initialized.")
+
+        prompt_messages = self._build_chat_messages(system, question, options, messages)
+        prompt_text = self.tokenizer.apply_chat_template(
+            prompt_messages, tokenize=False, add_generation_prompt=True
+        )
+
+        inputs = self.tokenizer(prompt_text, return_tensors="pt").to(self.model.device)
+
+        generation_config = self._build_generation_config(**kwargs)
+
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, generation_config=generation_config)
+
+        response_text = self.tokenizer.decode(
+            outputs[0],
+            skip_special_tokens=True,
+        )
+
+        return self._parse_model_response(response_text, options)

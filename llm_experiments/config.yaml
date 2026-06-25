@@ -26,8 +26,8 @@ llm:
     base_url: "https://chat.maritaca.ai/api"
     timeout: 30.0
   local:
-    device: "cuda"
-    quantization: "4bit"
+    device: "auto"
+    quantization: None
 
 sidra:
   api:
