@@ -1,64 +1,47 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import argparse
+from importlib import import_module
 import pandas as pd
-import requests
-import pyreadstat
 
 # -------------------------------
 # CONFIG
 # -------------------------------
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--style",
+    default="natural",
+    choices=["natural", "key_value", "markdown", "json_prompt"],
+)
+parser.add_argument(
+    "--model",
+    default="llama3",
+    choices=["llama3", "gemma3", "qwen3"],
+)
+
+args = parser.parse_args()
+
+PROMPT_STYLE = args.style
+MODEL = args.model
+
 TEST_PATH = "llm_simulation/data/df_test.csv"
-OUTPUT_PATH = "llm_simulation/outputs/llm_results.csv"
-MODEL = "llama3"
 
-# -------------------------------
-# LLM CALL
-# -------------------------------
+OUTPUT_PATH = f"outputs/{MODEL}_{PROMPT_STYLE}.csv"
+
+prompt_builder = import_module(f"prompts.{PROMPT_STYLE}")
+llm_builder = import_module(f"llm.{MODEL}")
+
 def call_llm(prompt):
-    response = requests.post(
-        "http://localhost:11434/api/generate",
-        json={
-            "model": MODEL,
-            "prompt": prompt,
-            "stream": False
-        }
-    )
-    return response.json()["response"].strip()
-
+    return llm_builder.call_llm(prompt)
 
 # -------------------------------
 # PROMPT
 # -------------------------------
 def build_prompt(row, question_text, options):
+    profile = prompt_builder.build_profile(row)
     options_str = "\n".join([f"{i+1}. {opt}" for i, opt in enumerate(options)])
-#  respondente brasileiro de uma pesquisa de opinião.
-
-    prompt=f"""
-Você é uma pessoa do sexo {row['SEXO']}, tem escolaridade {row['ESCOLARIDADE']}, religião {row['RELIGIAO']}, é da faixa etária {row['FX_ID']}, é da raça {row['RACA']}, renda pessoal de {row['REND1']} salários mínimos, renda familiar de {row['REND2']} salários mínimos, mora na região {row['REGIAO']} do país, em um município com condição {row['COND']}. 
-"""
-    if row['P4'] != "Não sabe/ Não respondeu":
-        prompt = prompt +f"""Você tem {row['P4']} em participar da vida política.
-"""
-
-    if row['P1A'] == "Sim":
-        prompt = prompt +f"""Você se lembra em quem votou para Deputado Estadual nas eleições gerais de 2022.
-"""
-    else:
-        prompt = prompt +f"""Você não lembra em quem votou para Deputado Estadual nas eleições gerais de 2022.
-"""
-    if row['P1B'] == "Sim":
-        prompt = prompt +f"""Você se lembra em quem votou para Deputado Federal nas eleições gerais de 2022.
-"""
-    else:
-        prompt = prompt +f"""Você não lembra em quem votou para Deputado Federal nas eleições gerais de 2022.
-"""
-    if row['P1C'] == "Sim":
-        prompt = prompt +f"""Você se lembra em quem votou para Senador nas eleições gerais de 2022.
-"""
-    else:
-        prompt = prompt +f"""Você não lembra em quem votou para Senador nas eleições gerais de 2022.
-"""
-
-    prompt = prompt + f"""
+    #respondente brasileiro de uma pesquisa de opinião.
+    prompt = f"""
+{profile}
 Baseie sua resposta nas características do perfil e no comportamento típico de indivíduos semelhantes.
 
 Pergunta:

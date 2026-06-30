@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulação de Opinião Pública — Mackenzie 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070d1e;--sur:rgba(255,255,255,.05);--bdr:rgba(255,255,255,.09);
+  --bl:#3b82f6;--bll:#60a5fa;--gd:#f59e0b;--gdl:#fbbf24;
+  --gn:#10b981;--gnl:#34d399;--rd:#ef4444;--rdl:#f87171;
+  --tx:#f1f5f9;--mt:#94a3b8;--dm:#475569
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
+  font-family:-apple-system,'Segoe UI',system-ui,sans-serif;color:var(--tx);
+  -webkit-font-smoothing:antialiased}
+
+/* ── DECK ── */
+#deck{position:relative;width:100%;height:100%;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:48px 68px 80px;
+  opacity:0;pointer-events:none;will-change:transform,opacity}
+.slide.on{opacity:1;pointer-events:auto}
+
+/* ── PROGRESS ── */
+#prog{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.05);z-index:999}
+#progf{height:100%;background:linear-gradient(90deg,var(--bl),var(--gd));border-radius:0 2px 2px 0;transition:width .4s ease}
+
+/* ── NAV ── */
+#nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:13px;z-index:999;
+  background:rgba(7,13,30,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--bdr);border-radius:100px;padding:7px 16px}
+.nb{width:30px;height:30px;border-radius:50%;border:1px solid var(--bdr);
+  background:var(--sur);color:var(--tx);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1;
+  transition:background .2s,border-color .2s,transform .1s;user-select:none}
+.nb:hover:not(:disabled){background:var(--bl);border-color:var(--bl);transform:scale(1.06)}
+.nb:active:not(:disabled){transform:scale(.94)}
+.nb:disabled{opacity:.22;cursor:default}
+#dots{display:flex;gap:5px;align-items:center}
+.dot{width:6px;height:6px;border-radius:3px;background:var(--dm);cursor:pointer;transition:all .28s}
+.dot.on{background:var(--bll);width:17px}
+#ctr{font-size:11px;color:var(--mt);font-variant-numeric:tabular-nums;min-width:34px}
+
+/* ── KEY HINT ── */
+#hint{position:fixed;top:14px;right:18px;font-size:11px;color:var(--dm);
+  display:flex;gap:5px;align-items:center;pointer-events:none}
+.key{border:1px solid var(--dm);border-radius:4px;padding:1px 5px;font-size:10px}
+
+/* ── TYPE ── */
+.eye{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--bll);margin-bottom:9px}
+h1{font-size:clamp(1.9rem,3.6vw,3.2rem);font-weight:800;line-height:1.12}
+h2{font-size:clamp(1.3rem,2.6vw,2.1rem);font-weight:700;line-height:1.2}
+h3{font-size:clamp(.9rem,1.5vw,1.2rem);font-weight:600;line-height:1.35}
+p{font-size:clamp(.78rem,1vw,.92rem);line-height:1.7;color:var(--mt)}
+.grad{background:linear-gradient(135deg,var(--bll),var(--gdl));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text}
+.rule{width:50px;height:3px;background:linear-gradient(90deg,var(--bl),transparent);
+  border-radius:2px;margin:11px 0 20px}
+
+/* ── LAYOUT ── */
+.w{width:100%;max-width:1060px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%}
+.card{background:var(--sur);border:1px solid var(--bdr);border-radius:13px;padding:22px}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;
+  font-size:11px;font-weight:600;margin-bottom:9px}
+.pb{background:rgba(59,130,246,.15);color:var(--bll);border:1px solid rgba(59,130,246,.3)}
+.pg{background:rgba(16,185,129,.15);color:var(--gnl);border:1px solid rgba(16,185,129,.3)}
+.po{background:rgba(245,158,11,.15);color:var(--gdl);border:1px solid rgba(245,158,11,.3)}
+.pr{background:rgba(239,68,68,.15);color:var(--rdl);border:1px solid rgba(239,68,68,.3)}
+ul.lst{list-style:none;display:flex;flex-direction:column;gap:9px}
+ul.lst li{display:flex;gap:8px;font-size:clamp(.76rem,.98vw,.86rem);color:var(--mt);line-height:1.55}
+ul.lst li::before{content:'→';color:var(--bll);font-weight:700;flex-shrink:0}
+.steps{display:flex;flex-direction:column;gap:13px;width:100%}
+.step{display:flex;gap:13px;align-items:flex-start}
+.sn{width:25px;height:25px;border-radius:50%;background:var(--bl);color:#fff;
+  font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:2px}
+.sn.g{background:var(--gn)}
+.sb h4{font-size:clamp(.8rem,1.05vw,.9rem);font-weight:600;margin-bottom:2px}
+.sb p{font-size:clamp(.72rem,.92vw,.8rem)}
+
+/* ── BARS ── */
+.blbl{font-size:11px;color:var(--mt);margin-bottom:6px}
+.brow{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.btag{font-size:11px;color:var(--mt);width:54px;flex-shrink:0}
+.btrk{flex:1;height:27px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden}
+.bf{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;
+  font-size:11px;font-weight:700;color:#fff}
+.bfb{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.bfg{background:linear-gradient(90deg,#10b981,#34d399)}
+.bfo{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.bfr{background:linear-gradient(90deg,#ef4444,#f87171)}
+
+/* ── FEATURE BARS ── */
+.frow{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.fnm{font-size:11px;color:var(--mt);width:138px;flex-shrink:0}
+.fbar{flex:1;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden}
+.fbf{height:100%;border-radius:3px;background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{padding:9px 14px;text-align:left;font-size:11px;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--mt);border-bottom:1px solid var(--bdr)}
+.tbl td{padding:12px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+.tbl tr:last-child td{border-bottom:none}
+.win{color:var(--gnl);font-weight:700}.lose{color:var(--rdl)}
+
+/* ── METRICS ── */
+.mstrip{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap}
+.mitem{text-align:center}
+.mval{font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:800;line-height:1;margin-bottom:2px}
+.mlbl{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.07em}
+.msep{width:1px;height:48px;background:var(--bdr)}
+
+/* ── FINDING ── */
+.fnd{background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(16,185,129,.06));
+  border:1px solid rgba(59,130,246,.22);border-radius:13px;padding:20px;text-align:center}
+.fnum{font-size:clamp(2rem,3.2vw,3rem);font-weight:900;
+  background:linear-gradient(135deg,#60a5fa,#34d399);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1;margin-bottom:5px}
+.fdsc{font-size:11px;color:var(--mt);line-height:1.5}
+
+/* ── PROMPT ── */
+.pbox{background:#050c1c;border:1px solid rgba(59,130,246,.2);border-radius:9px;
+  padding:16px;font-family:'SF Mono',Consolas,monospace;
+  font-size:clamp(9px,.95vw,11px);color:#7dd3fc;line-height:1.75;
+  white-space:pre;overflow-x:auto}
+
+/* ── MODEL BOX ── */
+.mbox{border-radius:13px;padding:18px;border:1px solid var(--bdr)}
+.mbox.rf{background:linear-gradient(135deg,rgba(59,130,246,.09),rgba(16,185,129,.04));
+  border-color:rgba(59,130,246,.28)}
+.mbox.llm{background:linear-gradient(135deg,rgba(245,158,11,.09),rgba(239,68,68,.04));
+  border-color:rgba(245,158,11,.28)}
+
+/* ── SLIDE 1 ── */
+#s1{text-align:center;
+  background:radial-gradient(ellipse 70% 60% at 75% 25%,rgba(59,130,246,.12) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 50% at 20% 80%,rgba(245,158,11,.07) 0%,transparent 50%),
+             var(--bg)}
+#s1::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none}
+.cmeta{display:flex;gap:18px;align-items:center;justify-content:center;
+  flex-wrap:wrap;margin-top:26px}
+.cm{font-size:13px;color:var(--mt);display:flex;align-items:center;gap:5px}
+.cdot{width:3px;height:3px;border-radius:50%;background:var(--dm)}
+
+/* ── SLIDE 11 ── */
+#s11{text-align:center;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(59,130,246,.13) 0%,transparent 65%),
+             var(--bg)}
+</style>
+</head>
+<body>
+
+<div id="prog"><div id="progf" style="width:0%"></div></div>
+<div id="hint"><span class="key">←</span><span class="key">→</span>&nbsp;navegar&nbsp;·&nbsp;<span class="key">Space</span> avançar</div>
+
+<div id="deck">
+
+<!-- ═══════════════════════════ S1 CAPA ═══════════════════════════ -->
+<div class="slide on" id="s1">
+  <div class="eye">Universidade Presbiteriana Mackenzie · FCI · 2026</div>
+  <h1 style="max-width:840px;margin-bottom:12px">
+    Simulação de <span class="grad">Opinião Pública</span>
+  </h1>
+  <h3 style="font-weight:300;color:var(--mt);max-width:640px;margin-bottom:16px;
+             font-size:clamp(.95rem,1.7vw,1.35rem)">
+    Percepção dos brasileiros acerca da democracia
+  </h3>
+  <p style="max-width:560px;text-align:center;font-size:clamp(.85rem,1.1vw,1rem)">
+    Comparando <strong style="color:var(--bll)">Random Forest</strong> e
+    <strong style="color:var(--gdl)">LLaMA 3</strong> na simulação de pesquisas de opinião
+    com dados reais do CESOP/IPEC/04832
+  </p>
+  <div class="cmeta">
+    <div class="cm">👤 Lucas Nascimento Aguiar</div>
+    <div class="cdot"></div>
+    <div class="cm">👤 Matheus dos Santos Moreira</div>
+    <div class="cdot"></div>
+    <div class="cm">🎓 Modelos de Linguagem e Generativos</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S2 MOTIVAÇÃO ═══════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="w">
+    <div class="eye">Contexto</div>
+    <h2>Por que simular pesquisas de opinião?</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start">
+      <div class="steps">
+        <div class="step"><div class="sn">1</div><div class="sb">
+          <h4>Pesquisas tradicionais são caras e lentas</h4>
+          <p>Coleta em larga escala exige tempo, recursos humanos e logística complexa em todo o território nacional.</p>
+        </div></div>
+        <div class="step"><div class="sn">2</div><div class="sb">
+          <h4>Dados sintéticos como alternativa</h4>
+          <p>Modelos computacionais podem gerar amostras que espelham distribuições reais da população.</p>
+        </div></div>
+        <div class="step"><div class="sn">3</div><div class="sb">
+          <h4>Avanços em IA abrem novas possibilidades</h4>
+          <p>ML supervisionado e LLMs oferecem abordagens distintas para capturar comportamentos sociais complexos.</p>
+        </div></div>
+        <div class="step"><div class="sn">4</div><div class="sb">
+          <h4>A questão central</h4>
+          <p>Esses modelos conseguem reproduzir a heterogeneidade e as nuances do cenário sociodemográfico brasileiro?</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="card" style="border-left:3px solid var(--bl);background:rgba(59,130,246,.05);margin-bottom:13px">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mt);margin-bottom:7px">Pesquisa base</div>
+          <h3 style="color:var(--bll);margin-bottom:11px">CESOP / IPEC / 04832</h3>
+          <ul class="lst">
+            <li>Percepção dos brasileiros acerca da democracia</li>
+            <li>Coleta: 01–05 de setembro de 2023</li>
+            <li>2.000 entrevistas em todo o território nacional</li>
+            <li>Amostragem por conglomerados em 3 estágios</li>
+            <li>Margem de erro: ±2 p.p. · IC 95%</li>
+          </ul>
+        </div>
+        <div class="card" style="border-left:3px solid var(--gd);padding:16px">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mt);margin-bottom:5px">Objetivo</div>
+          <p style="color:var(--tx);font-size:13px">
+            Avaliar se ML e LLMs conseguem reproduzir tanto
+            <strong style="color:var(--gdl)">respostas individuais</strong> quanto
+            <strong style="color:var(--bll)">distribuições populacionais</strong> de pesquisas reais.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S3 DADOS ═══════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="w">
+    <div class="eye">Dataset</div>
+    <h2>Os dados da pesquisa</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start">
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--mt);margin-bottom:11px">Features (entrada)</div>
+        <div class="g2" style="gap:9px;margin-bottom:11px">
+          <div class="card" style="padding:13px">
+            <div class="pill pb">Ordinal</div>
+            <ul class="lst" style="gap:5px">
+              <li>Faixa Etária</li><li>Interesse Político</li>
+              <li>Renda Pessoal</li><li>Renda Familiar</li>
+            </ul>
+          </div>
+          <div class="card" style="padding:13px">
+            <div class="pill po">Nominal</div>
+            <ul class="lst" style="gap:5px">
+              <li>Sexo / Raça</li><li>Escolaridade</li>
+              <li>Religião / Região</li><li>Voto 2022</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="padding:13px;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)">
+          <div class="pill pr">Targets (saída)</div>
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--rdl)">P2_1</div>
+              <div style="font-size:12px;color:var(--mt)">Propostas prioritárias para políticos</div>
+            </div>
+            <div style="width:1px;height:28px;background:var(--bdr)"></div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--rdl)">P3_1</div>
+              <div style="font-size:12px;color:var(--mt)">Combate às fake news</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--mt);margin-bottom:11px">Pré-processamento</div>
+        <div class="steps">
+          <div class="step"><div class="sn" style="background:var(--gd);color:#000">→</div><div class="sb">
+            <h4>Split 90 / 10</h4>
+            <p>1.800 amostras para treino · 200 para teste — conjunto compartilhado entre modelos</p>
+          </div></div>
+          <div class="step"><div class="sn" style="background:var(--gd);color:#000">→</div><div class="sb">
+            <h4>Agrupamento de categorias raras</h4>
+            <p>Features &lt;5% → "Outros" · Targets &lt;3% → "Outros/Diversos"</p>
+          </div></div>
+          <div class="step"><div class="sn" style="background:var(--gd);color:#000">→</div><div class="sb">
+            <h4>Encoding via pipeline</h4>
+            <p>Ordinais: OrdinalEncoder · Nominais: OneHotEncoder (drop='first')</p>
+          </div></div>
+        </div>
+        <div class="card" style="margin-top:13px;padding:13px;display:flex;gap:16px;align-items:center;justify-content:center">
+          <div style="text-align:center">
+            <div style="font-size:1.7rem;font-weight:800;color:var(--bll)">2.000</div>
+            <div style="font-size:10px;color:var(--mt)">entrevistas</div>
+          </div>
+          <div style="width:1px;height:34px;background:var(--bdr)"></div>
+          <div style="text-align:center">
+            <div style="font-size:1.7rem;font-weight:800;color:var(--gdl)">10</div>
+            <div style="font-size:10px;color:var(--mt)">features</div>
+          </div>
+          <div style="width:1px;height:34px;background:var(--bdr)"></div>
+          <div style="text-align:center">
+            <div style="font-size:1.7rem;font-weight:800;color:var(--rdl)">2</div>
+            <div style="font-size:10px;color:var(--mt)">targets</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S4 RANDOM FOREST ═══════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="w">
+    <div class="eye">Abordagem 1</div>
+    <h2>Modelo Supervisionado</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start;gap:24px">
+      <div>
+        <div class="mbox rf" style="margin-bottom:13px">
+          <div style="display:flex;gap:11px;align-items:center;margin-bottom:13px">
+            <div style="font-size:1.9rem">🌲</div>
+            <div>
+              <div style="font-weight:700;font-size:1rem">Random Forest</div>
+              <div style="font-size:12px;color:var(--mt)">+ Classifier Chain (multi-saída)</div>
+            </div>
+          </div>
+          <ul class="lst">
+            <li>class_weight=balanced — lida com desbalanceamento de classes</li>
+            <li>Classifier Chain: predição de P2_1 alimenta P3_1</li>
+            <li>GridSearchCV + validação cruzada de 5 folds</li>
+            <li>F1-Score ponderado: 0,1994 (treino/validação)</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mt);margin-bottom:11px">Hiperparâmetros otimizados</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+            <div style="background:rgba(59,130,246,.07);border-radius:7px;padding:9px">
+              <div style="font-size:11px;color:var(--mt)">n_estimators</div>
+              <div style="font-size:1.25rem;font-weight:800;color:var(--bll)">100</div>
+            </div>
+            <div style="background:rgba(59,130,246,.07);border-radius:7px;padding:9px">
+              <div style="font-size:11px;color:var(--mt)">max_depth</div>
+              <div style="font-size:1.25rem;font-weight:800;color:var(--bll)">30</div>
+            </div>
+            <div style="background:rgba(59,130,246,.07);border-radius:7px;padding:9px">
+              <div style="font-size:11px;color:var(--mt)">min_samples_leaf</div>
+              <div style="font-size:1.25rem;font-weight:800;color:var(--bll)">1</div>
+            </div>
+            <div style="background:rgba(59,130,246,.07);border-radius:7px;padding:9px">
+              <div style="font-size:11px;color:var(--mt)">max_features</div>
+              <div style="font-size:1.25rem;font-weight:800;color:var(--bll)">sqrt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--mt);margin-bottom:13px">Importância relativa das features</div>
+        <div class="frow"><div class="fnm">Renda Familiar</div><div class="fbar"><div class="fbf" style="width:88%"></div></div></div>
+        <div class="frow"><div class="fnm">Escolaridade</div><div class="fbar"><div class="fbf" style="width:80%"></div></div></div>
+        <div class="frow"><div class="fnm">Interesse Político</div><div class="fbar"><div class="fbf" style="width:73%"></div></div></div>
+        <div class="frow"><div class="fnm">Renda Pessoal</div><div class="fbar"><div class="fbf" style="width:64%"></div></div></div>
+        <div class="frow"><div class="fnm">Faixa Etária</div><div class="fbar"><div class="fbf" style="width:54%"></div></div></div>
+        <div class="frow"><div class="fnm">Região</div><div class="fbar"><div class="fbf" style="width:45%"></div></div></div>
+        <div class="frow"><div class="fnm">Religião</div><div class="fbar"><div class="fbf" style="width:37%"></div></div></div>
+        <div class="frow"><div class="fnm">Voto 2022</div><div class="fbar"><div class="fbf" style="width:29%"></div></div></div>
+        <div class="frow"><div class="fnm">Raça</div><div class="fbar"><div class="fbf" style="width:21%"></div></div></div>
+        <div class="frow"><div class="fnm">Sexo</div><div class="fbar"><div class="fbf" style="width:15%"></div></div></div>
+        <p style="font-size:11px;margin-top:9px">Variáveis socioeconômicas e comportamento político têm maior peso.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S5 LLM ═══════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="w">
+    <div class="eye">Abordagem 2</div>
+    <h2>Simulação com LLM — Silicon Sampling</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start;gap:24px">
+      <div>
+        <div class="mbox llm" style="margin-bottom:13px">
+          <div style="display:flex;gap:11px;align-items:center;margin-bottom:13px">
+            <div style="font-size:1.9rem">🦙</div>
+            <div>
+              <div style="font-weight:700;font-size:1rem">LLaMA 3</div>
+              <div style="font-size:12px;color:var(--mt)">via Ollama · 100% local e reprodutível</div>
+            </div>
+          </div>
+          <ul class="lst">
+            <li>Silicon Sampling — Argyle et al. (2023)</li>
+            <li>Um prompt estruturado por respondente por questão</li>
+            <li>Modelo instruído a responder apenas com as alternativas</li>
+            <li>Normalização textual pós-geração (prefixos, formatação)</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:15px">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mt);margin-bottom:9px">Dois formatos testados</div>
+          <div style="display:flex;gap:9px">
+            <div style="flex:1;background:rgba(245,158,11,.07);border-radius:7px;padding:11px;border:1px solid rgba(245,158,11,.2)">
+              <div style="font-size:11px;font-weight:700;color:var(--gdl);margin-bottom:2px">Mapa (lista)</div>
+              <div style="font-size:11px;color:var(--mt)">Atributos em formato chave-valor</div>
+            </div>
+            <div style="flex:1;background:rgba(16,185,129,.07);border-radius:7px;padding:11px;border:1px solid rgba(16,185,129,.2)">
+              <div style="font-size:11px;font-weight:700;color:var(--gnl);margin-bottom:2px">Linguagem natural</div>
+              <div style="font-size:11px;color:var(--mt)">Descrição contínua do perfil</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:11px;padding:13px;border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.04)">
+          <p style="font-size:12px;color:var(--tx)">
+            ⚠️ Pequenas mudanças na estrutura do prompt resultaram em variações relevantes nos resultados — evidenciando trade-off entre acurácia individual e alinhamento distribucional.
+          </p>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--mt);margin-bottom:9px">Exemplo de prompt (linguagem natural)</div>
+        <div class="pbox">Você é uma pessoa do sexo masculino,
+tem escolaridade Superior incompleto,
+religião Católica Apostólica Romana,
+faixa etária 55 a 64, raça Parda,
+renda pessoal de 1 a 2 salários mínimos,
+renda familiar de 2 a 5 salários mínimos,
+mora no CENTRO OESTE, município INTERIOR.
+
+Você tem Muita vontade em participar
+da vida política.
+Lembra em quem votou para Deputado
+Estadual e Federal em 2022.
+
+Baseie sua resposta nas características
+do perfil e no comportamento típico de
+indivíduos semelhantes.
+
+Pergunta: ...
+Alternativas: ...
+
+Responda com APENAS uma das opções
+exatamente como escrita.
+Não explique sua resposta.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S6 MÉTRICAS ═══════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="w">
+    <div class="eye">Avaliação</div>
+    <h2>Como medimos o desempenho?</h2>
+    <div class="rule"></div>
+    <div class="g2" style="gap:20px;align-items:stretch;margin-bottom:16px">
+      <div class="card" style="border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.05);padding:26px">
+        <div style="font-size:2rem;margin-bottom:9px">🎯</div>
+        <h3 style="color:var(--bll);margin-bottom:7px">Acurácia Individual</h3>
+        <p style="margin-bottom:14px">Mede se o modelo acerta a resposta exata de cada indivíduo no conjunto de teste.</p>
+        <div style="background:rgba(59,130,246,.08);border-radius:7px;padding:13px">
+          <div style="font-size:11px;color:var(--mt);margin-bottom:3px">Fórmula</div>
+          <code style="font-size:13px;color:var(--bll)">Acertos ÷ Total de amostras</code>
+        </div>
+        <p style="font-size:12px;margin-top:11px">⚠️ Tarefa difícil — opiniões individuais têm alta variância mesmo dentro de perfis semelhantes.</p>
+      </div>
+      <div class="card" style="border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.05);padding:26px">
+        <div style="font-size:2rem;margin-bottom:9px">📊</div>
+        <h3 style="color:var(--gnl);margin-bottom:7px">Jensen-Shannon Divergence (JSD)</h3>
+        <p style="margin-bottom:14px">Compara a distribuição de respostas reais vs. simuladas. Mede fidelidade populacional.</p>
+        <div style="background:rgba(16,185,129,.08);border-radius:7px;padding:13px">
+          <div style="font-size:11px;color:var(--mt);margin-bottom:5px">Escala de interpretação</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;gap:8px"><span style="color:var(--gnl);font-weight:700;font-size:13px">JSD = 0</span><span style="color:var(--dm);font-size:12px">distribuições idênticas ✓</span></div>
+            <div style="display:flex;gap:8px"><span style="color:var(--rdl);font-weight:700;font-size:13px">JSD = 1</span><span style="color:var(--dm);font-size:12px">completamente diferentes ✗</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:15px;border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.04);text-align:center">
+      <p style="color:var(--tx);font-size:14px">
+        🔑 <strong style="color:var(--gdl)">Insight-chave:</strong>
+        um modelo pode errar previsões individuais e ainda assim capturar corretamente a distribuição da população
+        — suficiente para gerar dados sintéticos válidos.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S7 RESULTADOS ═══════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="w">
+    <div class="eye">Resultados</div>
+    <h2>Comparativo de desempenho</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start;gap:20px;margin-bottom:16px">
+      <div class="card">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mt);margin-bottom:13px">Acurácia Individual ↑</div>
+        <div class="blbl">P2_1 — Propostas Prioritárias</div>
+        <div class="brow"><div class="btag">RF</div><div class="btrk"><div class="bf bfg" style="width:60.7%">17,0%</div></div></div>
+        <div class="brow" style="margin-bottom:14px"><div class="btag">LLaMA 3</div><div class="btrk"><div class="bf bfr" style="width:37.5%">10,5%</div></div></div>
+        <div class="blbl">P3_1 — Fake News</div>
+        <div class="brow"><div class="btag">RF</div><div class="btrk"><div class="bf bfg" style="width:100%">28,0%</div></div></div>
+        <div class="brow"><div class="btag">LLaMA 3</div><div class="btrk"><div class="bf bfr" style="width:85.7%">24,0%</div></div></div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mt);margin-bottom:3px">JSD Distribucional ↓</div>
+        <div style="font-size:11px;color:var(--dm);margin-bottom:13px">escala normalizada pelo pior resultado</div>
+        <div class="blbl">P2_1</div>
+        <div class="brow"><div class="btag">RF</div><div class="btrk"><div class="bf bfb" style="width:13.7%">0.036</div></div></div>
+        <div class="brow" style="margin-bottom:14px"><div class="btag">LLaMA 3</div><div class="btrk"><div class="bf bfo" style="width:100%">0.267</div></div></div>
+        <div class="blbl">P3_1</div>
+        <div class="brow"><div class="btag">RF</div><div class="btrk"><div class="bf bfb" style="width:10%">0.027</div></div></div>
+        <div class="brow"><div class="btag">LLaMA 3</div><div class="btrk"><div class="bf bfo" style="width:39%">0.104</div></div></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="tbl">
+        <thead><tr style="background:rgba(255,255,255,.03)">
+          <th>Métrica</th><th>LLaMA 3 — P2_1</th><th>LLaMA 3 — P3_1</th><th>RF — P2_1</th><th>RF — P3_1</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Acurácia ↑</td><td class="lose">10,5%</td><td class="lose">24,0%</td><td class="win">17,0%</td><td class="win">28,0%</td></tr>
+          <tr><td style="font-weight:600">JSD ↓</td><td class="lose">0,2674</td><td class="lose">0,1044</td><td class="win">0,0365</td><td class="win">0,0268</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S8 ACHADO PRINCIPAL ═══════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="w" style="text-align:center">
+    <div class="eye">Achado Principal</div>
+    <h2>O RF representa a distribuição<br/>populacional com altíssima fidelidade</h2>
+    <div class="rule" style="margin:11px auto 22px"></div>
+    <div class="mstrip" style="margin-bottom:32px">
+      <div class="mitem"><div class="mval" style="color:var(--gnl)">0.0365</div><div class="mlbl">JSD · RF · P2_1</div></div>
+      <div class="msep"></div>
+      <div class="mitem"><div class="mval" style="color:var(--gnl)">0.0268</div><div class="mlbl">JSD · RF · P3_1</div></div>
+      <div class="msep"></div>
+      <div class="mitem"><div class="mval" style="color:var(--rdl)">0.2674</div><div class="mlbl">JSD · LLaMA · P2_1</div></div>
+      <div class="msep"></div>
+      <div class="mitem"><div class="mval" style="color:var(--rdl)">0.1044</div><div class="mlbl">JSD · LLaMA · P3_1</div></div>
+    </div>
+    <div class="g3">
+      <div class="fnd">
+        <div class="fnum">7,3×</div>
+        <div class="fdsc">Menor JSD do RF vs. LLaMA<br/>na questão P2_1 (propostas prioritárias)</div>
+      </div>
+      <div class="fnd" style="background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.06));border-color:rgba(245,158,11,.22)">
+        <div class="fnum" style="background:linear-gradient(135deg,#fbbf24,#f87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3,9×</div>
+        <div class="fdsc">Menor JSD do RF vs. LLaMA<br/>na questão P3_1 (fake news)</div>
+      </div>
+      <div class="fnd" style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(59,130,246,.06));border-color:rgba(16,185,129,.22)">
+        <div class="fnum" style="background:linear-gradient(135deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">+62%</div>
+        <div class="fdsc">Ganho de acurácia individual<br/>do RF sobre o LLaMA em P2_1</div>
+      </div>
+    </div>
+    <p style="max-width:660px;margin:18px auto 0;font-size:13px">
+      Embora a predição individual seja desafiadora para ambos, o Random Forest preserva a distribuição estatística da população brasileira com precisão notável.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S9 ANÁLISE ═══════════════════════════ -->
+<div class="slide" id="s9">
+  <div class="w">
+    <div class="eye">Análise</div>
+    <h2>Por que o RF superou o LLM?</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start;gap:24px">
+      <div>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+          <span style="font-size:1.3rem">🌲</span>
+          <h3 style="font-size:clamp(.82rem,1.2vw,.96rem);color:var(--bll)">Random Forest — Vantagens</h3>
+        </div>
+        <ul class="lst" style="gap:11px">
+          <li>Treinado <strong style="color:var(--tx)">especificamente nos dados do CESOP</strong> — captura padrões reais do eleitorado brasileiro</li>
+          <li>Mapeia correlações sociodemográficas sutis: renda × escolaridade × opinião</li>
+          <li>Interpretável: é possível entender quais features influenciam cada decisão</li>
+          <li>Produz distribuições sintéticas que espelham frequências observadas empiricamente</li>
+        </ul>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+          <span style="font-size:1.3rem">🦙</span>
+          <h3 style="font-size:clamp(.82rem,1.2vw,.96rem);color:var(--gdl)">LLaMA 3 — Desafios</h3>
+        </div>
+        <ul class="lst" style="gap:11px">
+          <li>Vieses de treinamento global — representa mal as nuances do eleitorado brasileiro</li>
+          <li><strong style="color:var(--tx)">Homogeneização:</strong> concentra respostas em categorias "politicamente esperadas" (educação, empregos)</li>
+          <li>Sub-representa categorias relevantes como "combater o preconceito"</li>
+          <li>Alta sensibilidade ao formato do prompt — instabilidade nas distribuições geradas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px;border-color:rgba(245,158,11,.22);background:rgba(245,158,11,.04);padding:16px">
+      <p style="color:var(--tx);font-size:13px;line-height:1.7">
+        🔍 <strong style="color:var(--gdl)">Trade-off observado:</strong>
+        a transição do prompt em formato de lista para linguagem natural contínua alterou substancialmente os resultados — evidenciando sensibilidade inerente ao paradigma de silicon sampling para contextos sociodemográficos específicos.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S10 CONCLUSÃO ═══════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="w">
+    <div class="eye">Conclusão</div>
+    <h2>O que aprendemos?</h2>
+    <div class="rule"></div>
+    <div class="g2" style="align-items:start;gap:24px">
+      <div class="steps">
+        <div class="step"><div class="sn g">✓</div><div class="sb">
+          <h4>Dados locais superam escala global</h4>
+          <p>Treinamento especializado no CESOP capturou nuances que LLMs genéricos treinados globalmente não reproduziram.</p>
+        </div></div>
+        <div class="step"><div class="sn g">✓</div><div class="sb">
+          <h4>RF validado para geração de dados sintéticos</h4>
+          <p>O baixo JSD valida o Random Forest como ferramenta robusta para simulações populacionais aplicadas às Ciências Sociais.</p>
+        </div></div>
+        <div class="step"><div class="sn g">✓</div><div class="sb">
+          <h4>LLMs como complemento, não substituto</h4>
+          <p>Capturam as categorias mais frequentes, mas falham em preservar a diversidade das respostas reais.</p>
+        </div></div>
+        <div class="step"><div class="sn g">✓</div><div class="sb">
+          <h4>Fidelidade distribucional &gt; acurácia individual</h4>
+          <p>Para simulação de opinião pública, reproduzir a distribuição da população importa mais do que acertar cada indivíduo.</p>
+        </div></div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--mt);margin-bottom:13px">Trabalhos Futuros</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="card" style="padding:12px;display:flex;gap:11px;align-items:center">
+            <span style="font-size:1.15rem">🔧</span>
+            <div><div style="font-weight:600;font-size:13px">Fine-Tuning de LLMs</div>
+            <div style="font-size:11px;color:var(--mt)">Adaptar com dados brasileiros para reduzir vieses globais</div></div>
+          </div>
+          <div class="card" style="padding:12px;display:flex;gap:11px;align-items:center">
+            <span style="font-size:1.15rem">📐</span>
+            <div><div style="font-weight:600;font-size:13px">SHAP Values</div>
+            <div style="font-size:11px;color:var(--mt)">Análise de explicabilidade detalhada por feature</div></div>
+          </div>
+          <div class="card" style="padding:12px;display:flex;gap:11px;align-items:center">
+            <span style="font-size:1.15rem">💬</span>
+            <div><div style="font-weight:600;font-size:13px">Outros LLMs (GPT, Claude…)</div>
+            <div style="font-size:11px;color:var(--mt)">Verificar se desafios são do paradigma ou da arquitetura testada</div></div>
+          </div>
+          <div class="card" style="padding:12px;display:flex;gap:11px;align-items:center">
+            <span style="font-size:1.15rem">🔄</span>
+            <div><div style="font-weight:600;font-size:13px">Bootstrapping</div>
+            <div style="font-size:11px;color:var(--mt)">Múltiplas execuções para estimativas mais robustas de variância</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ S11 OBRIGADO ═══════════════════════════ -->
+<div class="slide" id="s11">
+  <div class="eye" style="margin-bottom:16px">Universidade Presbiteriana Mackenzie · 2026</div>
+  <h1 style="font-size:clamp(2.4rem,4.8vw,3.8rem);margin-bottom:10px">Obrigado! 🙏</h1>
+  <p style="font-size:15px;max-width:440px;margin-bottom:32px;text-align:center">Dúvidas, sugestões e críticas são muito bem-vindas.</p>
+  <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-bottom:28px">
+    <div class="card" style="padding:13px 20px">
+      <div style="font-size:11px;color:var(--mt);margin-bottom:2px">Lucas Aguiar</div>
+      <div style="font-size:13px;color:var(--bll)">lucas.naguiar@outlook.com</div>
+    </div>
+    <div class="card" style="padding:13px 20px">
+      <div style="font-size:11px;color:var(--mt);margin-bottom:2px">Matheus Moreira</div>
+      <div style="font-size:13px;color:var(--bll)">matheusmoreira2004@live.com</div>
+    </div>
+  </div>
+  <div class="card" style="padding:12px 18px;display:inline-flex;gap:9px;align-items:center;margin-bottom:36px">
+    <span>🐙</span>
+    <div style="text-align:left">
+      <div style="font-size:10px;color:var(--mt)">Repositório público</div>
+      <div style="font-size:12px;color:var(--bll);font-family:'SF Mono',Consolas,monospace">github.com/olucasaguiar/projeto-simulacao-opiniao-publica</div>
+    </div>
+  </div>
+  <div class="mstrip">
+    <div class="mitem"><div class="mval" style="color:var(--gnl)">0.0365</div><div class="mlbl">JSD mínimo (RF)</div></div>
+    <div class="msep"></div>
+    <div class="mitem"><div class="mval" style="color:var(--bll)">28%</div><div class="mlbl">Acurácia máx (RF)</div></div>
+    <div class="msep"></div>
+    <div class="mitem"><div class="mval" style="color:var(--gdl)">2.000</div><div class="mlbl">Entrevistas reais</div></div>
+    <div class="msep"></div>
+    <div class="mitem"><div class="mval" style="color:var(--rdl)">7,3×</div><div class="mlbl">RF vs LLaMA (JSD)</div></div>
+  </div>
+</div>
+
+</div><!-- #deck -->
+
+<nav id="nav">
+  <button class="nb" id="bp" onclick="go(-1)" disabled>&#8249;</button>
+  <div id="dots"></div>
+  <span id="ctr">1 / 11</span>
+  <button class="nb" id="bn" onclick="go(1)">&#8250;</button>
+</nav>
+
+<script>
+const N=11; let cur=0, busy=false;
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<N;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  d.onclick=()=>goTo(i);
+  dotsEl.appendChild(d);
+}
+function syncUI(){
+  document.getElementById('ctr').textContent=`${cur+1} / ${N}`;
+  document.getElementById('bp').disabled=cur===0;
+  document.getElementById('bn').disabled=cur===N-1;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  document.getElementById('progf').style.width=(cur/(N-1)*100)+'%';
+}
+function goTo(idx){
+  if(busy||idx===cur||idx<0||idx>=N)return;
+  busy=true;
+  const dir=idx>cur?1:-1;
+  const slides=document.querySelectorAll('.slide');
+  const from=slides[cur], to=slides[idx];
+  to.style.cssText='transition:none;transform:translateX('+dir*100+'%);opacity:1;pointer-events:none';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const T='transform .46s cubic-bezier(.4,0,.2,1),opacity .46s ease';
+    from.style.cssText='transition:'+T+';transform:translateX('+(-dir*100)+'%);opacity:0';
+    to.style.cssText='transition:'+T+';transform:translateX(0);opacity:1;pointer-events:none';
+    setTimeout(()=>{
+      from.classList.remove('on'); from.style.cssText='';
+      to.classList.add('on');      to.style.cssText='';
+      cur=idx; syncUI(); busy=false;
+    },470);
+  }));
+}
+function go(d){goTo(cur+d);}
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();go(1);}
+  else if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();go(-1);}
+});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);});
+syncUI();
+</script>
+</body>
+</html>

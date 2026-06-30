@@ -8,7 +8,7 @@ all: setup run
 
 # Create virtual environment
 venv:
-	python3 -m venv $(VENV)
+	$(PYTHON) -m venv $(VENV)
 
 # Install dependencies
 install: venv
@@ -33,3 +33,12 @@ display:
 # Clean environment
 clean:
 	rm -rf $(VENV)
+
+run-experiments-llama3:
+	$(PYTHON) ./llm_simulation/src/run_experiments.py
+
+run-experiments-gemma3:
+	$(PYTHON) ./llm_simulation/src/run_experiments.py --model gemma3
+
+run-experiments-qwen3:
+	$(PYTHON) ./llm_simulation/src/run_experiments.py --model qwen3
