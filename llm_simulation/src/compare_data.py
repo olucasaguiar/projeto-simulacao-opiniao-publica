@@ -5,8 +5,9 @@ from scipy.spatial.distance import jensenshannon
 # -------------------------------
 # CONFIG
 # -------------------------------
-INPUT_PATH = "llm_simulation/outputs/llm_results.csv"
-OUTPUT_DIR = "llm_simulation/outputs/"
+MODEL = "quen3"
+INPUT_PATH = "llm_simulation/outputs/"
+OUTPUT_DIR = f"llm_simulation/outputs/{MODEL}/"
 
 # -------------------------------
 # JSD + DISTRIBUTION (UNIFICADO)
@@ -65,8 +66,8 @@ def normalize(text):
 # -------------------------------
 # LOAD DATA
 # -------------------------------
-def load_data():
-    df = pd.read_csv(INPUT_PATH)
+def load_data(structure):
+    df = pd.read_csv(f"{INPUT_PATH}/{MODEL}_{structure}.csv")
 
     df["llm_answer"] = df["llm_answer"].apply(normalize)
     df["true_answer"] = df["true_answer"].apply(normalize)
@@ -129,20 +130,23 @@ def export_results(df, accuracy, acc_per_q, dist_df, jsd_df):
 # MAIN
 # -------------------------------
 def main():
-    df = load_data()
+    print(f"Model - {MODEL}")
+    for structure in ["json_prompt", "key_value", "markdown", "natural"]:
+        print(f"\n\n\nStructure - {structure}")
+        df = load_data(structure)
 
-    accuracy, df = compute_accuracy(df)
-    acc_per_q = compute_accuracy_per_question(df)
-    jsd_df, dist_df = compute_jsd_and_distribution(df)
-    print("\nJSD per question:")
-    print(jsd_df)
+        accuracy, df = compute_accuracy(df)
+        acc_per_q = compute_accuracy_per_question(df)
+        jsd_df, dist_df = compute_jsd_and_distribution(df)
+        print("\nJSD per question:")
+        print(jsd_df)
 
-    print(f"Overall Accuracy: {accuracy:.4f}\n")
-    print("Accuracy per question:")
-    print(acc_per_q)
+        print(f"Overall Accuracy: {accuracy:.4f}\n")
+        print("Accuracy per question:")
+        print(acc_per_q)
 
-    export_results(df, accuracy, acc_per_q, dist_df, jsd_df)
-    print(f"Results exported to {OUTPUT_DIR}")
+        export_results(df, accuracy, acc_per_q, dist_df, jsd_df)
+        print(f"Results exported to {OUTPUT_DIR}")
 
 
 if __name__ == "__main__":

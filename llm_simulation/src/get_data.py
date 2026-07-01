@@ -25,7 +25,7 @@ MODEL = args.model
 
 TEST_PATH = "llm_simulation/data/df_test.csv"
 
-OUTPUT_PATH = f"outputs/{MODEL}_{PROMPT_STYLE}.csv"
+OUTPUT_PATH = f"llm_simulation/outputs/{MODEL}_{PROMPT_STYLE}.csv"
 
 prompt_builder = import_module(f"prompts.{PROMPT_STYLE}")
 llm_builder = import_module(f"llm.{MODEL}")
