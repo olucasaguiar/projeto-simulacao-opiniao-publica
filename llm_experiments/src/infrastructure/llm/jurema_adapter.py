@@ -90,7 +90,7 @@ class JuremaAdapter(BaseLLMClient):
         user_prompt = (
             f"{question}\n\n"
             f"Opções:\n{options_text}\n\n"
-            f"Responda fornecendo APENAS um JSON contendo as chaves 'answer' (a letra da alternativa escolhida para a sua resposta) e 'explanation' (justificativa em relação a alternativa escolhida)."
+            f"Responda fornecendo APENAS um JSON contendo as chaves 'answer' (a letra da alternativa escolhida para a sua resposta) e 'explanation' (justificativa do porquê, contendo no máximo 85 palavras)."
         )
         chat_messages.append({"role": "user", "content": user_prompt})
         return chat_messages
@@ -98,11 +98,11 @@ class JuremaAdapter(BaseLLMClient):
     def _build_generation_config(self, **kwargs) -> GenerationConfig:
         return GenerationConfig(
             do_sample=kwargs.get("do_sample", True),
-            temperature=kwargs.get("temperature", 0.1),
+            temperature=kwargs.get("temperature", 0.7),
             top_k=kwargs.get("top_k", 50),
             top_p=kwargs.get("top_p", 1.0),
             repetition_penalty=kwargs.get("repetition_penalty", 1.2),
-            max_new_tokens=kwargs.get("max_output_tokens", 150),
+            max_new_tokens=kwargs.get("max_output_tokens", 1000),
             pad_token_id=self.tokenizer.eos_token_id,
         )
 
