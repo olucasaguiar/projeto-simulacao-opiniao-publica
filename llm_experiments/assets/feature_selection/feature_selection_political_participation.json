@@ -1,0 +1,9 @@
+{
+  "selected_variables": [
+    "age_group",
+    "education_level",
+    "income_per_capita",
+    "health_self_assessment",
+    "religion"
+  ]
+}

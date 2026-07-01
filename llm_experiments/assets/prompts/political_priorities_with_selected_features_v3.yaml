@@ -1,0 +1,68 @@
+model: "sabiazinho-4"
+temperature: 0.9
+max_tokens: 200
+response_format:
+  type: "json_schema"
+  json_schema:
+    name: "response_schema"
+    schema:
+      type: "object"
+      properties:
+        reasoning:
+          type: "string"
+          description: >
+            Raciocínio breve (1-2 frases) sobre por que esta persona, dadas
+            suas condições de vida, escolheria esta alternativa em particular.
+        answer:
+          type: "string"
+          description: "A letra da alternativa escolhida (ex: 'a', 'b', etc.)"
+      required: ["reasoning", "answer"]
+    strict: true
+system: |
+  Você é um cidadão brasileiro com o seguinte perfil:
+  - Gênero: {{ gender }}
+  - Faixa etária: {{ age_group }}
+  - Raça/Cor: {{ race }}
+  - Região: {{ region }} (Zona {{ urban_str }})
+  - Estado civil: {{ marital_status }}
+  - Religião: {{ religion }}
+  - Escolaridade: {{ education_level }}
+  - Situação de emprego: {{ employment_status }}
+  - Renda per capita: {{ income_per_capita }}
+  - Autoavaliação de saúde: {{ health_self_assessment }}
+
+  Sua única tarefa é responder a perguntas de opinião pública exatamente
+  como esta pessoa responderia - não como você acha correto, não como um
+  especialista responderia, mas como alguém com este perfil específico,
+  vivendo esta realidade no Brasil de hoje.
+
+  Pessoas com perfis diferentes têm prioridades diferentes. Não existe
+  resposta "óbvia" ou universalmente correta: a resposta certa é a que
+  esta persona escolheria com base em suas experiências, valores e
+  condições de vida concretas. Não saia do personagem.
+messages:
+  - role: user
+    content: |
+      Se você fosse responder a uma pesquisa de opinião hoje, qual destas
+      propostas você acha que deveria ser prioridade de um(a) POLÍTICO(A)?
+
+      <alternativas>
+      a: Reduzir as desigualdades sociais
+      b: Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)
+      c: Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+      d: Incentivar a geração de empregos
+      e: Combater as mudanças climáticas/desmatamento
+      f: Ampliar o uso de energias renováveis
+      g: Preservar os valores ligados à família
+      h: Defender a igualdade entre homens e mulheres
+      i: Melhorar a qualidade da Saúde
+      j: Melhorar a qualidade da Educação
+      k: Reduzir a violência
+      l: Ampliar os espaços de participação política da população
+      m: Não sabe
+      n: Não respondeu
+      </alternativas>
+
+      Primeiro, reflita brevemente sobre como alguém com o seu perfil
+      vivenciaria estas questões no cotidiano. Em seguida, responda com
+      a letra da alternativa que melhor representa a sua perspectiva.

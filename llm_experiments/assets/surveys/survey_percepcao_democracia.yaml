@@ -4,6 +4,8 @@ cenario:
   modelos:
     - sabia-4
     - sabiazinho-4
+    - gpt-5-mini
+    - llama-3.2-3b
 
 resultados:
   caminho: "./assets/surveys/results/percepcao_democracia"

@@ -1,0 +1,79 @@
+model: "sabiazinho-4"
+temperature: 0.3
+max_tokens: 150
+response_format:
+  type: "json_schema"
+  json_schema:
+    name: "feature_selection_schema"
+    schema:
+      type: "object"
+      properties:
+        selected_variables:
+          type: "array"
+          items:
+            type: "string"
+          description: "Lista de nomes de variáveis de personas brasileiras selecionadas como preditoras."
+      required: ["selected_variables"]
+    strict: true
+system: |
+messages:
+  - role: user
+    content: |
+      Você é um assistente de raciocínio especializado em comportamento humano e opinião pública.
+      Sua tarefa é analisar um conjunto de variáveis que descrevem indivíduos brasileiros e
+      selecionar apenas as variáveis que são mais preditivas para a resposta de uma pessoa a
+      uma pergunta específica de pesquisa de opinião pública.
+      Abaixo estão os quatro grupos de variáveis das personas brasileiras e suas respectivas descrições:
+
+      **Demográficas**
+      - age_group: Faixa etária do indivíduo (ex: "25-34", "35-44", "45-54", "55-64", "65+")
+      - gender: Gênero do indivíduo (Masculino, Feminino)
+      - race: Raça/cor autoidentificada (Branca, Preta, Parda, Amarela, Indígena)
+      - region: Região do Brasil onde reside (Norte, Nordeste, Sudeste, Sul, Centro-Oeste)
+      - urban: Indicação se reside em área urbana (true) ou rural (false)
+
+      **Econômicas**
+      - education_level: Grau de instrução/escolaridade
+      - employment_status: Situação ocupacional no mercado de trabalho (Ocupada, Desocupada, Fora da força)
+      - income_per_capita: Faixa de renda familiar per capita mensal (em salários mínimos)
+      - inflation_rate: Taxa de inflação recente acumulada percebida
+
+      **Saúde**
+      - health_self_assessment: Autoavaliação do estado geral de saúde (Muito bom, Bom, Regular, Ruim, Muito ruim)
+      - has_chronic_disease: Presença de diagnóstico de alguma doença crônica (true ou false)
+
+      **Sociais**
+      - marital_status: Estado civil do indivíduo
+      - religion: Afiliação religiosa declarada do indivíduo
+
+      ---
+
+      Queremos prever a resposta do entrevistado para a seguinte pergunta de pesquisa de opinião pública sobre o tema de **Prioridades Políticas**:
+
+      **Pergunta:**
+      Qual destas propostas você acha que deveria ser prioridade de um(a) POLÍTICO(A)?
+
+      **Alternativas de Resposta:**
+      a: Reduzir as desigualdades sociais
+      b: Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)
+      c: Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+      d: Incentivar a geração de empregos
+      e: Combater as mudanças climáticas/desmatamento
+      f: Ampliar o uso de energias renováveis
+      g: Preservar os valores ligados à família
+      h: Defender a igualdade entre homens e mulheres
+      i: Melhorar a qualidade da Saúde
+      j: Melhorar a qualidade da Educação
+      k: Reduzir a violência
+      l: Ampliar os espaços de participação política da população
+      m: Não sabe
+      n: Não respondeu
+
+      ---
+
+      **Instruções:**
+      Com base no seu conhecimento de sociologia, ciência política e psicologia social brasileira,
+      selecione APENAS as variáveis da persona listadas acima que são mais preditivas de como uma
+      pessoa responderia a esta pergunta de pesquisa. Priorize precisão e clareza.
+
+      Retorne a resposta estritamente em formato JSON contendo a chave "selected_variables".

@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 
 class MaritacaAdapter(BaseLLMClient):
     def __init__(
-        self, model_id: str, maritaca_api_key: str = os.getenv("MARITACA_API_KEY", None)
+        self, model_id: str, maritaca_api_key: str = None
     ):
         super().__init__(model_id)
-        self.maritaca_api_key = maritaca_api_key
+        self.maritaca_api_key = maritaca_api_key or os.getenv("MARITACA_API_KEY", None)
         if not self.maritaca_api_key:
             raise ValueError("MARITACA_API_KEY environment variable is required.")
 

@@ -1,0 +1,52 @@
+model: "sabiazinho-4"
+temperature: 0.7
+max_tokens: 100
+response_format:
+  type: "json_schema"
+  json_schema:
+    name: "response_schema"
+    schema:
+      type: "object"
+      properties:
+        answer:
+          type: "string"
+          description: "A letra da alternativa escolhida para a sua resposta (ex: 'a', 'b', etc.)"
+      required: ["answer"]
+    strict: true
+system: |
+  Você é um cidadão brasileiro com o seguinte perfil:
+  - Idade: {{ age_group }}
+  - Gênero: {{ gender }}
+  - Raça/Cor: {{ race }}
+  - Região do Brasil: {{ region }} (Zona {{ urban_str }})
+  - Escolaridade: {{ education_level }}
+  - Situação de emprego: {{ employment_status }}
+  - Faixa de renda: {{ income_per_capita }}
+  - Estado civil: {{ marital_status }}
+  - Religião: {{ religion }}
+  - Autoavaliação de saúde: {{ health_self_assessment }}
+
+  Sua tarefa é responder a perguntas de opinião pública como se você fosse essa pessoa.
+  Considere as condições socioeconômicas e demográficas descritas para formar sua opinião,
+  refletindo o contexto real do Brasil. Não saia do personagem.
+  Responda de forma sincera baseando-se nas experiências prováveis de alguém com este exato perfil.
+messages:
+  - role: user
+    content: |
+      Qual destas propostas você acha que deveria ser prioridade de um(a) POLÍTICO(A)?
+
+      Opções:
+      a: Reduzir as desigualdades sociais
+      b: Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)
+      c: Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+      d: Incentivar a geração de empregos
+      e: Combater as mudanças climáticas/desmatamento
+      f: Ampliar o uso de energias renováveis
+      g: Preservar os valores ligados à família
+      h: Defender a igualdade entre homens e mulheres
+      i: Melhorar a qualidade da Saúde
+      j: Melhorar a qualidade da Educação
+      k: Reduzir a violência
+      l: Ampliar os espaços de participação política da população
+      m: Não sabe
+      n: Não respondeu

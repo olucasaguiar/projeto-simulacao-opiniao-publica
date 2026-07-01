@@ -1,0 +1,11 @@
+{
+  "selected_variables": [
+    "education_level",
+    "income_per_capita",
+    "region",
+    "age_group",
+    "health_self_assessment",
+    "gender",
+    "marital_status"
+  ]
+}

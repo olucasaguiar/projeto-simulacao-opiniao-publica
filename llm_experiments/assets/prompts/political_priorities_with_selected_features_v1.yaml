@@ -1,0 +1,55 @@
+model: "sabiazinho-4"
+temperature: 0.7
+max_tokens: 100
+response_format:
+  type: "json_schema"
+  json_schema:
+    name: "response_schema"
+    schema:
+      type: "object"
+      properties:
+        answer:
+          type: "string"
+          description: "A letra da alternativa escolhida para a sua resposta (ex: 'a', 'b', etc.)"
+      required: ["answer"]
+    strict: true
+messages:
+  - role: user
+    content: |
+      Você deve pensar e responder como um cidadão brasileiro que possua o perfil abaixo.
+      Hoje é 29 de Junho de 2026. Quando questionado, considere as condições socioeconômicas
+      e demográficas do perfil para formar sua opinião sobre a pergunta e responda
+      com a letra da alternativa que melhor represente a sua opinião.
+
+      <perfil>
+      - Escolaridade: {{ education_level }}
+      - Faixa de renda: {{ income_per_capita }}
+      - Região do Brasil: {{ region }}
+      - Idade: {{ age_group }}
+      - Autoavaliação de saúde: {{ health_self_assessment }}
+      - Gênero: {{ gender }}
+      - Estado civil: {{ marital_status }}
+      </perfil>
+
+      <pergunta>
+      Qual destas propostas você acha que deveria ser prioridade de um(a) POLÍTICO(A)?
+      </pergunta>
+
+      <alternativas>
+      a: Reduzir as desigualdades sociais
+      b: Combater o preconceito (racismo, homofobia, diferença de classe social, etc.)
+      c: Aumentar os impostos de grandes fortunas (ou dos mais ricos)
+      d: Incentivar a geração de empregos
+      e: Combater as mudanças climáticas/desmatamento
+      f: Ampliar o uso de energias renováveis
+      g: Preservar os valores ligados à família
+      h: Defender a igualdade entre homens e mulheres
+      i: Melhorar a qualidade da Saúde
+      j: Melhorar a qualidade da Educação
+      k: Reduzir a violência
+      l: Ampliar os espaços de participação política da população
+      m: Não sabe
+      n: Não respondeu
+      </alternativas>
+
+      Minha resposta é
