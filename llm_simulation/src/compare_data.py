@@ -5,7 +5,7 @@ from scipy.spatial.distance import jensenshannon
 # -------------------------------
 # CONFIG
 # -------------------------------
-MODEL = "quen3"
+MODEL = "qwen3"
 INPUT_PATH = "llm_simulation/outputs/"
 OUTPUT_DIR = f"llm_simulation/outputs/{MODEL}/"
 
@@ -66,8 +66,8 @@ def normalize(text):
 # -------------------------------
 # LOAD DATA
 # -------------------------------
-def load_data(structure):
-    df = pd.read_csv(f"{INPUT_PATH}/{MODEL}_{structure}.csv")
+def load_data(prompt_style):
+    df = pd.read_csv(f"{INPUT_PATH}/{MODEL}_{prompt_style}.csv")
 
     df["llm_answer"] = df["llm_answer"].apply(normalize)
     df["true_answer"] = df["true_answer"].apply(normalize)
@@ -94,34 +94,34 @@ def compute_accuracy_per_question(df):
 # -------------------------------
 # EXPORT
 # -------------------------------
-def export_results(df, accuracy, acc_per_q, dist_df, jsd_df):
+def export_results(df, accuracy, acc_per_q, dist_df, jsd_df, prompt_style):
     # overall
     pd.DataFrame({
         "metric": ["accuracy"],
         "value": [accuracy]
-    }).to_csv(f"{OUTPUT_DIR}/overall_metrics.csv", index=False)
+    }).to_csv(f"{OUTPUT_DIR}/{prompt_style}/overall_metrics.csv", index=False)
 
     # per question
     acc_per_q.to_csv(
-        f"{OUTPUT_DIR}/accuracy_per_question.csv",
+        f"{OUTPUT_DIR}/{prompt_style}/accuracy_per_question.csv",
         index=False
     )
 
     # distributions
     dist_df.to_csv(
-        f"{OUTPUT_DIR}/distribution_comparison.csv",
+        f"{OUTPUT_DIR}/{prompt_style}/distribution_comparison.csv",
         index=False
     )
 
     # full comparison
     df.to_csv(
-        f"{OUTPUT_DIR}/full_comparison.csv",
+        f"{OUTPUT_DIR}/{prompt_style}/full_comparison.csv",
         index=False
     )
 
     # JSD
     jsd_df.to_csv(
-        f"{OUTPUT_DIR}/jsd_per_question.csv",
+        f"{OUTPUT_DIR}/{prompt_style}/jsd_per_question.csv",
         index=False
     )
 
@@ -131,9 +131,14 @@ def export_results(df, accuracy, acc_per_q, dist_df, jsd_df):
 # -------------------------------
 def main():
     print(f"Model - {MODEL}")
-    for structure in ["json_prompt", "key_value", "markdown", "natural"]:
-        print(f"\n\n\nStructure - {structure}")
-        df = load_data(structure)
+    for prompt_style in [
+    "natural",
+    "key_value",
+    "markdown",
+    "json_prompt",
+]:
+        print(f"\n\n\Prompt style - {prompt_style}")
+        df = load_data(prompt_style)
 
         accuracy, df = compute_accuracy(df)
         acc_per_q = compute_accuracy_per_question(df)
@@ -145,8 +150,8 @@ def main():
         print("Accuracy per question:")
         print(acc_per_q)
 
-        export_results(df, accuracy, acc_per_q, dist_df, jsd_df)
-        print(f"Results exported to {OUTPUT_DIR}")
+        export_results(df, accuracy, acc_per_q, dist_df, jsd_df, prompt_style)
+        print(f"Results exported to {OUTPUT_DIR}/{prompt_style}")
 
 
 if __name__ == "__main__":
