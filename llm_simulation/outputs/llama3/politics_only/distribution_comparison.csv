@@ -1,0 +1,40 @@
+question,answer,real_prob,llm_prob
+P2_1,2,0.0,0.05
+P2_1,3,0.0,0.005
+P2_1,ampliar o uso de energias renováveis,0.015,0.045
+P2_1,ampliar os espaços de participação política da população,0.02,0.0
+P2_1,aumentar os impostos de grandes fortunas (ou dos mais ricos),0.015,0.065
+P2_1,"combater o preconceito (racismo, homofobia, diferença de classe social, etc.)",0.155,0.035
+P2_1,defender a igualdade entre homens e mulheres,0.01,0.005
+P2_1,incentivar a geração de empregos,0.185,0.055
+P2_1,melhorar a qualidade da educação,0.105,0.205
+P2_1,melhorar a qualidade da saúde,0.175,0.03
+P2_1,nada,0.0,0.005
+P2_1,nao sabe,0.0,0.005
+P2_1,nao sabe/ não respondeu,0.0,0.015
+P2_1,nao sabe/não respondeu,0.0,0.005
+P2_1,nenhum(a),0.0,0.005
+P2_1,nenhuma,0.0,0.005
+P2_1,"nesse caso, vou escolher a opção 9.",0.0,0.005
+P2_1,não sabe,0.0,0.02
+P2_1,não sabe/ não respondeu,0.02,0.28
+P2_1,não sabe/não resposeu,0.0,0.005
+P2_1,não sabe/não resposteu,0.0,0.01
+P2_1,não sei.,0.0,0.01
+P2_1,não sei/ não respondeu,0.0,0.005
+P2_1,não sei/não respondeu,0.0,0.02
+P2_1,preservar os valores ligados à família,0.045,0.0
+P2_1,reduzir a violência,0.095,0.0
+P2_1,reduzir as desigualdades sociais,0.16,0.11
+P3_1,"ampliar a regulamentação para políticos que divulgam fake news, criadas por eles próprios ou por terceiros",0.045,0.005
+P3_1,"ampliar a regulamentação para usuários que divulgam fake news, criadas por eles próprios ou por terceiros",0.065,0.185
+P3_1,"ampliar a regulamentação, as regras a serem cumpridas pelas plataformas digitais (facebook, youtube, whatsapp, etc.)",0.275,0.145
+P3_1,nada sei/ não respondeu,0.0,0.005
+P3_1,nao sabe/ não respondeu,0.0,0.005
+P3_1,nenhum,0.0,0.005
+P3_1,nenhuma,0.0,0.01
+P3_1,não sabe/ não respondeu,0.075,0.36
+P3_1,não sei/ não respondeu,0.0,0.005
+P3_1,responsabilizar e punir as empresas de tecnologia/comunicação que não removerem postagens com conteúdos falsos,0.245,0.175
+P3_1,responsabilizar e punir os usuários que divulgam ou compartilham postagens com notícias ou conteúdos falsos,0.205,0.1
+P3_1,"responsabilizar, punir ou caçar políticos que divulgam ou compartilham postagens com notícias ou conteúdos falsos",0.09,0.0

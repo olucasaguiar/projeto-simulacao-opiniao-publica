@@ -3,11 +3,8 @@ import argparse
 from concurrent.futures import ProcessPoolExecutor
 import subprocess
 
-PROMPTS = [
-    "natural",
-    "key_value",
-    "markdown",
-    "json_prompt",
+FEATURES = [
+   "full", "demographics_only", "no_religion", "no_income", "no_memory", "no_interest", "politics_only"
 ]
 
 parser = argparse.ArgumentParser()
@@ -19,13 +16,13 @@ parser.add_argument(
 args = parser.parse_args()
 MODEL = args.model
 
-def run(style):
+def run(feature_style):
     subprocess.run(
         [
             sys.executable,
             "./llm_simulation/src/get_data.py",
-            "--style",
-            style,
+            "--feature_style",
+            feature_style,
             "--model",
             MODEL
         ],
@@ -33,5 +30,5 @@ def run(style):
     )
 
 if __name__ == "__main__":
-    with ProcessPoolExecutor(max_workers=4) as executor:
-        list(executor.map(run, PROMPTS))
+    with ProcessPoolExecutor(max_workers=7) as executor:
+        list(executor.map(run, FEATURES))

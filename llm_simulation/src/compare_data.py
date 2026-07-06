@@ -66,8 +66,8 @@ def normalize(text):
 # -------------------------------
 # LOAD DATA
 # -------------------------------
-def load_data(prompt_style):
-    df = pd.read_csv(f"{INPUT_PATH}/{MODEL}_{prompt_style}.csv")
+def load_data(feature_style):
+    df = pd.read_csv(f"{INPUT_PATH}/{MODEL}_{feature_style}.csv")
 
     df["llm_answer"] = df["llm_answer"].apply(normalize)
     df["true_answer"] = df["true_answer"].apply(normalize)
@@ -94,34 +94,34 @@ def compute_accuracy_per_question(df):
 # -------------------------------
 # EXPORT
 # -------------------------------
-def export_results(df, accuracy, acc_per_q, dist_df, jsd_df, prompt_style):
+def export_results(df, accuracy, acc_per_q, dist_df, jsd_df, feature_style):
     # overall
     pd.DataFrame({
         "metric": ["accuracy"],
         "value": [accuracy]
-    }).to_csv(f"{OUTPUT_DIR}/{prompt_style}/overall_metrics.csv", index=False)
+    }).to_csv(f"{OUTPUT_DIR}/{feature_style}/overall_metrics.csv", index=False)
 
     # per question
     acc_per_q.to_csv(
-        f"{OUTPUT_DIR}/{prompt_style}/accuracy_per_question.csv",
+        f"{OUTPUT_DIR}/{feature_style}/accuracy_per_question.csv",
         index=False
     )
 
     # distributions
     dist_df.to_csv(
-        f"{OUTPUT_DIR}/{prompt_style}/distribution_comparison.csv",
+        f"{OUTPUT_DIR}/{feature_style}/distribution_comparison.csv",
         index=False
     )
 
     # full comparison
     df.to_csv(
-        f"{OUTPUT_DIR}/{prompt_style}/full_comparison.csv",
+        f"{OUTPUT_DIR}/{feature_style}/full_comparison.csv",
         index=False
     )
 
     # JSD
     jsd_df.to_csv(
-        f"{OUTPUT_DIR}/{prompt_style}/jsd_per_question.csv",
+        f"{OUTPUT_DIR}/{feature_style}/jsd_per_question.csv",
         index=False
     )
 
@@ -131,14 +131,9 @@ def export_results(df, accuracy, acc_per_q, dist_df, jsd_df, prompt_style):
 # -------------------------------
 def main():
     print(f"Model - {MODEL}")
-    for prompt_style in [
-    "natural",
-    "key_value",
-    "markdown",
-    "json_prompt",
-]:
-        print(f"\n\n\Prompt style - {prompt_style}")
-        df = load_data(prompt_style)
+    for feature_style in ["full", "demographics_only", "no_religion", "no_income", "no_memory", "no_interest", "politics_only"]:
+        print(f"\n\n\Feature style - {feature_style}")
+        df = load_data(feature_style)
 
         accuracy, df = compute_accuracy(df)
         acc_per_q = compute_accuracy_per_question(df)
@@ -150,8 +145,8 @@ def main():
         print("Accuracy per question:")
         print(acc_per_q)
 
-        export_results(df, accuracy, acc_per_q, dist_df, jsd_df, prompt_style)
-        print(f"Results exported to {OUTPUT_DIR}/{prompt_style}")
+        export_results(df, accuracy, acc_per_q, dist_df, jsd_df, feature_style)
+        print(f"Results exported to {OUTPUT_DIR}/{feature_style}")
 
 
 if __name__ == "__main__":
